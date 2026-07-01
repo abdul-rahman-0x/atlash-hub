@@ -5,160 +5,146 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-brand-violet: oklch(0.72 0.16 295);
+    --color-brand-peach: oklch(0.82 0.12 45);
+    --color-brand-green: oklch(0.88 0.12 150);
+    --color-brand-dark: oklch(0.12 0 0);
 
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
-  --font-serif: var(--font-serif);
+    --font-sans: var(--font-sans);
+    --font-mono: var(--font-mono);
+    --font-serif: var(--font-serif);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
 
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
+    /* Updated for Hard Neobrutalist Shadows */
+    --shadow-sm: 2px 2px 0px 0px var(--foreground);
+    --shadow-md: 4px 4px 0px 0px var(--foreground);
+    --shadow-lg: 8px 8px 0px 0px var(--foreground);
+
+    /* Hard 3D Shadows */
+    --shadow-nb-md: 4px 4px 0px 0px #000000;
+    --shadow-nb-lg: 8px 8px 0px 0px #000000;
+    --shadow-nb-ink: 4px 4px 0px 0px oklch(0.12 0 0 / 0.2);
 }
 
-/* 
-  LIGHT MODE (ROOT) 
-  The "Warm Paper" & "Nature" Palette
-*/
 :root {
-  /* Paper/Canvas Texture Background */
-  --background: oklch(0.18 0.03 260);
-  --foreground: oklch(0.92 0.02 85);
+    /* Canvas Background (Cream) & Ink Foreground (Black) */
+    --background: oklch(0.98 0.01 90);
+    --foreground: oklch(0.12 0 0);
 
-  --card: oklch(0.22 0.03 260);
-  --card-foreground: oklch(0.92 0.02 85);
-  --popover: oklch(0.22 0.03 260);
-  --popover-foreground: oklch(0.92 0.02 85);
+    --primary: oklch(0.72 0.16 295); /* Violet */
+    --secondary: oklch(0.82 0.12 45); /* Peach */
 
-  /* Primary: Glowing Sage Green */
-  --primary: oklch(0.65 0.12 145);
-  --primary-foreground: oklch(0.1 0.02 260);
+    --border: oklch(0.12 0 0);
+    --radius: 1.25rem;
 
-  --secondary: oklch(0.28 0.05 260);
-  --secondary-foreground: oklch(0.92 0.02 85);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.12 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.12 0 0);
 
-  --muted: oklch(0.28 0.03 260);
-  --muted-foreground: oklch(0.70 0.03 260);
+    /* Primary: Creem Purple */
+    --primary: oklch(0.72 0.16 295);
+    --primary-foreground: oklch(0.12 0 0);
 
-  --accent: oklch(0.35 0.08 145);
-  --accent-foreground: oklch(0.92 0.02 85);
+    /* Secondary: Creem Mint Green */
+    --secondary: oklch(0.88 0.12 150);
+    --secondary-foreground: oklch(0.12 0 0);
 
-  --destructive: oklch(0.45 0.18 30);
-  --destructive-foreground: oklch(1 0 0);
+    /* Muted & Accents (Peach/Orange) */
+    --muted: oklch(0.95 0.01 90);
+    --muted-foreground: oklch(0.4 0.01 260);
+    --accent: oklch(0.85 0.12 60);
+    --accent-foreground: oklch(0.12 0 0);
 
-  --border: oklch(0.28 0.03 260);
-  --input: oklch(0.28 0.03 260);
-  --ring: oklch(0.65 0.12 145);
+    --destructive: oklch(0.6 0.2 25);
+    --destructive-foreground: oklch(1 0 0);
 
-  /* Sidebar Dark */
-  --sidebar: oklch(0.15 0.03 260);
-  --sidebar-foreground: oklch(0.92 0.02 85);
-  --sidebar-border: oklch(0.25 0.03 260);
-  --sidebar-ring: oklch(0.65 0.12 145);
+    /* Neobrutalist Borders */
+    --input: oklch(0.12 0 0);
+    --ring: oklch(0.72 0.16 295);
 
-  /* Nature-inspired Charts (Earthy colors) */
-  --chart-1: oklch(0.55 0.12 140);
-  /* Green */
-  --chart-2: oklch(0.65 0.10 210);
-  /* Soft Blue */
-  --chart-3: oklch(0.75 0.12 70);
-  /* Ochre */
-  --chart-4: oklch(0.55 0.15 35);
-  /* Clay */
-  --chart-5: oklch(0.45 0.05 180);
-  /* Teal */
+    --sidebar: oklch(0.98 0.01 90);
+    --sidebar-foreground: oklch(0.12 0 0);
+    --sidebar-border: oklch(0.12 0 0);
+    --sidebar-ring: oklch(0.72 0.16 295);
 
-  --radius: 0.75rem;
-  /* Soft, organic corners */
-
-  /* Soft Shadows: Using a warm brown tint instead of harsh black */
-  --shadow-color: oklch(0.28 0.04 80 / 0.1);
-  --shadow-sm: 0 1px 2px 0 var(--shadow-color);
-  --shadow-md: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
-  --shadow-lg: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+    --chart-1: oklch(0.72 0.16 295);
+    --chart-2: oklch(0.88 0.12 150);
+    --chart-3: oklch(0.85 0.12 60);
+    --chart-4: oklch(0.7 0.1 200);
+    --chart-5: oklch(0.6 0.15 320);
 }
-
-
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50 p-0 m-0;
-  }
+    * {
+        /* Set default border width to 2px for the neobrutalist look */
+        @apply border-foreground/10 outline-ring/50 p-0 m-0;
+    }
 
-  body {
-    @apply bg-background text-foreground transition-colors duration-300 antialiased;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .delay-400 {
-    animation-delay: 400ms;
-  }
-
-  .delay-600 {
-    animation-delay: 600ms;
-  }
-
-  .delay-800 {
-    animation-delay: 800ms;
-  }
+    body {
+        @apply bg-background text-foreground transition-colors duration-300 antialiased;
+    }
 }
 
 @layer components {
+    .grid-wrapper {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+    }
 
-  .grid-wrapper {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
-  }
+    .wrapper {
+        @apply container mx-auto px-6 lg:px-12;
+    }
 
-  .wrapper {
-    @apply container mx-auto px-4 sm:px-6 lg:px-8;
-  }
+    /* Keeps your existing hover logic but uses the new hard shadows */
+    .card-hover {
+        @apply border-2 border-foreground shadow-md hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 ease-in-out;
+    }
 
-  .card-hover {
-    @apply hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-in-out border-border/50;
-  }
+    .empty-state {
+        @apply border-dashed border-4 rounded-[2rem] p-16 text-center bg-secondary/10;
+    }
 
-  .empty-state {
-    @apply border-dashed border-2 rounded-xl p-12 text-center bg-secondary/20;
-  }
+    /* The "Creem" Wavy Divider Base */
+    .wave-divider {
+        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48H1440V0C1400 0 1360 24 1280 24C1200 24 1160 0 1080 0C1000 0 960 24 880 24C800 24 760 0 680 0C600 0 560 24 480 24C400 24 360 0 280 0C200 0 160 24 80 24C40 24 20 12 0 0V48Z" fill="black"/></svg>');
+        mask-size: 100% 48px;
+        mask-repeat: no-repeat;
+        mask-position: bottom;
+    }
 }
