@@ -138,7 +138,7 @@
     }
 
     .empty-state {
-        @apply border-dashed border-4 rounded-[2rem] p-16 text-center bg-secondary/10;
+        @apply border-dashed border-4 rounded-4xl p-16 text-center bg-secondary/10;
     }
 
     /* The "Creem" Wavy Divider Base */
