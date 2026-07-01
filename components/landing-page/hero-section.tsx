@@ -1,94 +1,120 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-    Activity,
-    Zap,
-    ShieldCheck,
-    Server,
-    Compass,
-} from "lucide-react";
+import { MoveRight, Compass } from "lucide-react";
 import Link from "next/link";
-import StatsCard from "./stats-card";
-
-const DiscoveryBadge = () => {
-    return (
-        <Badge
-            variant="default"
-            className="mb-8 py-1.5 border-2"
-        >
-            <span className="relative flex h-2 w-2 mr-1">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-            </span>
-
-            <span className="pl-1 text-primary lowercase font-bold tracking-tight">
-                Join thousands of creators sharing their work
-            </span>
-        </Badge>
-    )
-}
-
-const statsData = [
-    {
-        icon: Server,
-        value: "2,480",
-        label: "Systems Shared"
-    },
-    {
-        icon: ShieldCheck,
-        value: "1,240",
-        label: "Active Architects",
-        hasBorder: true,
-    },
-    {
-        icon: Activity,
-        value: "15k+",
-        label: "Monthly Visitors"
-    },
-]
 
 export default function HeroSection() {
     return (
-        <section className="relative pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
-            <div className="wrapper relative z-10">
-                <div className="flex flex-col items-center justify-center text-center">
-
-                    <DiscoveryBadge />
-
-                    <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8 max-w-5xl text-foreground leading-[0.95]">
-                        Reveal the Future <br />
-                        <span className="text-primary drop-shadow-sm">
-                            Discover What&apos;s Scaling
+        <section
+            className="
+                relative
+                bg-[#967AE9]
+                min-h-screen
+                flex
+                items-center
+                overflow-hidden
+                pt-24
+                pb-40
+                md:pt-40
+                md:pb-52
+            ">
+            <div className="wrapper relative z-20">
+                <div className="flex flex-col items-center text-center max-w-6xl mx-auto">
+                    {/* HERO */}
+                    <h1 className="text-[clamp(2rem,7vw,5.5rem)] font-black leading-[1.1] tracking-tight text-black mb-10">
+                        Share your
+                        <span className="relative inline-block bg-[#FFB38A] px-4 py-2 border-4 border-black rounded-2xl shadow-[6px_6px_0px_0px_#000] -rotate-2 mx-2 text-white italic">
+                            Best Work
                         </span>
+                        and see what scales.
                     </h1>
 
-                    <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-3xl leading-relaxed font-medium">
-                        A community platform for architects to showcase their systems, cloud tools, and dev projects. Authentic launches, real builders, genuine feedback.
+                    <p className="text-xl md:text-2xl text-black/80 max-w-2xl font-medium leading-snug mb-12">
+                        Join a community of makers sharing projects and shipping
+                        products that matter.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-5 mb-20">
+                    {/* CTA */}
+                    <div className="flex flex-wrap items-center justify-center gap-5 mb-20">
                         <Button asChild size="lg">
-                            <Link href="/submit">
-                                <Zap className="mr-2 size-5 fill-current" />
-                                Share Your Project
+                            <Link
+                                href="/submit"
+                                className="flex items-center gap-2">
+                                share project
+                                <MoveRight className="size-6" />
                             </Link>
                         </Button>
 
                         <Button asChild variant="outline" size="lg">
-                            <Link href="/explore">
-                                Explore Projects
-                                <Compass className="ml-2 size-5" />
+                            <Link
+                                href="/explore"
+                                className="flex items-center gap-2">
+                                Discover More
+                                <Compass className="size-6" />
                             </Link>
                         </Button>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 max-w-3xl w-full">
-                        {statsData.map((stat) => (
-                            <StatsCard key={stat.label} {...stat} />
-                        ))}
+                    {/* PLATFORM STATS */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-6xl">
+                        <div className="bg-white border-4 border-black rounded-3xl p-6 shadow-[8px_8px_0px_0px_#000]">
+                            <div className="text-4xl font-black">247</div>
+                            <div className="mt-2 text-black/70 font-medium">
+                                Products Shared
+                            </div>
+                        </div>
+
+                        <div className="bg-[#FFB38A] border-4 border-black rounded-3xl p-6 shadow-[8px_8px_0px_0px_#000]">
+                            <div className="text-4xl font-black">12K</div>
+                            <div className="mt-2 text-black/70 font-medium">
+                                Community Votes
+                            </div>
+                        </div>
+
+                        <div className="bg-white border-4 border-black rounded-3xl p-6 shadow-[8px_8px_0px_0px_#000]">
+                            <div className="text-4xl font-black">348</div>
+                            <div className="mt-2 text-black/70 font-medium">
+                                Active Makers
+                            </div>
+                        </div>
+
+                        <div className="bg-[#B8F2E6] border-4 border-black rounded-3xl p-6 shadow-[8px_8px_0px_0px_#000]">
+                            <div className="text-4xl font-black">89</div>
+                            <div className="mt-2 text-black/70 font-medium">
+                                Launches This Week
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* SCROLL HINT */}
+                    <div className="mt-16 flex flex-col items-center">
+                        <span className="text-sm uppercase tracking-[0.3em] font-bold text-black/60">
+                            Discover Projects
+                        </span>
+
+                        <div className="mt-3 animate-bounce text-2xl">↓</div>
                     </div>
                 </div>
             </div>
+
+            {/* WAVE */}
+            <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+                <svg
+                    viewBox="0 0 1440 120"
+                    preserveAspectRatio="none"
+                    className="block w-full h-[120px]">
+                    <path
+                        fill="#F9F7F0"
+                        d="
+                        M0,60
+                        C240,0 360,120 720,60
+                        C1080,0 1200,120 1440,60
+                        L1440,120
+                        L0,120
+                        Z
+                        "
+                    />
+                </svg>
+            </div>
         </section>
-    )
+    );
 }
