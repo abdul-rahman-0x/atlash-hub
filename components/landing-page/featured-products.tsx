@@ -1,4 +1,3 @@
-// components/landing-page/featured-products.tsx
 import SectionHeader from "@/components/common/section-header";
 import ProductCard from "@/components/products/product-card";
 import { getFeaturedProducts } from "@/lib/products/product-select";
@@ -11,7 +10,7 @@ export default async function FeaturedProducts() {
             <div className="wrapper">
                 <SectionHeader
                     title="Featured Today"
-                    description="Top picks from our community of architects this week."
+                    description="The most liked projects shared by our friends this week."
                     href="/explore"
                 />
 
