@@ -1,6 +1,5 @@
-// components/landing-page/recent-launches.tsx
 import SectionHeader from "@/components/common/section-header";
-import { Activity, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 import ProductCard from "@/components/products/product-card";
 import EmptyState from "@/components/common/empty-state";
 import { getRecentProducts } from "@/lib/products/product-select";
@@ -12,9 +11,8 @@ export default async function RecentLaunches() {
         <section className="py-24 bg-background">
             <div className="wrapper">
                 <SectionHeader
-                    title="Recently Deployed"
-                    icon={Activity}
-                    description="Discover the newest infrastructure systems and digital assets added to the hub this week."
+                    title="Recently Launched"
+                    description="Take a look at the latest creations added to the hub."
                     href="/explore"
                 />
 
@@ -26,8 +24,8 @@ export default async function RecentLaunches() {
                     </div>
                 ) : (
                     <EmptyState
-                        message="No recent deployments"
-                        description="Check back soon to see the newest systems and infrastructure launched in the community."
+                        message="it is a quiet week!"
+                        description="we are waiting for some cool new stuff. check back soon or be the first to share!"
                         icon={Calendar}
                     />
                 )}
