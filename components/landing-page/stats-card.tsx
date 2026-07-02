@@ -1,34 +1,33 @@
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
+interface StatsCardProps {
+    icon: LucideIcon; // Type-safe Lucide icon
+    value: string;
+    label: string;
+    hasBorder?: boolean;
+}
+
 export default function StatsCard({
     icon: Icon,
     value,
     label,
-    hasBorder
-}: {
-    icon: LucideIcon,
-    value: string,
-    label: string,
-    hasBorder?: boolean
-}) {
+    hasBorder,
+}: StatsCardProps) {
     return (
-        <div className={cn(
-            "flex flex-col items-center p-4 transition-all group",
-            // The soft vertical divider looks great in the Midnight Forest theme
-            hasBorder && "sm:border-x-2 border-foreground/5"
-        )}>
+        <div
+            className={cn(
+                "flex flex-col items-center p-4 transition-all group",
+                hasBorder && "sm:border-x-2 border-black/10",
+            )}>
             <div className="flex items-center justify-center gap-3 mb-2">
-                {/* Changed primary/60 to primary for a "Live Status" glow effect */}
-                <Icon className="size-5 text-primary drop-shadow-[0_0_8px_rgba(var(--primary),0.2)] transition-transform group-hover:scale-110" />
-
-                <p className="text-4xl font-extrabold tracking-tight text-foreground leading-none">
+                {/* Fixed: Icon is now used correctly */}
+                <Icon className="size-6 text-black/40 group-hover:text-primary transition-colors" />
+                <p className="text-5xl font-black tracking-tighter text-black leading-none">
                     {value}
                 </p>
             </div>
-
-            {/* Professional System Metric Label */}
-            <p className="text-[12px] tracking-[0.25em] font-black text-muted-foreground/60">
+            <p className="text-[10px] tracking-[0.2em] font-black text-black/40 uppercase">
                 {label}
             </p>
         </div>
