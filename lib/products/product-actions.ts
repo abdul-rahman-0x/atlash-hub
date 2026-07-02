@@ -3,30 +3,31 @@
 import { db } from "@/db";
 import { products } from "@/db/schema";
 import { FormState } from "@/types";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { eq, sql } from "drizzle-orm";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { eq, sql, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { productSchema } from "./product-validations";
+import { productVotes } from "@/db/schema";
 
 export const addProductAction = async (
     prevState: FormState,
     formData: FormData,
 ): Promise<FormState> => {
     try {
-        const { userId, orgId } = await auth();
+        const session = await auth.api.getSession({
+            headers: await headers(),
+        });
 
-        if (!userId) {
+        if (!session?.user) {
             return {
                 success: false,
                 message: "You must be signed in to submit a product.",
             };
         }
 
-        const user = await currentUser();
-        const userEmail =
-            user?.primaryEmailAddress?.emailAddress || "anonymous";
-
         const rawFormData = Object.fromEntries(formData.entries());
+
         const validatedData = productSchema.safeParse(rawFormData);
 
         if (!validatedData.success) {
@@ -46,22 +47,27 @@ export const addProductAction = async (
             tagline,
             description,
             websiteUrl,
-            tags: tags,
+            tags,
             status: "pending",
-            submittedBy: userEmail,
-            organizationId: orgId,
-            userId,
+
+            // Better Auth user
+            submittedBy: session.user.email ?? "anonymous",
+            userId: session.user.id,
+
+            // Better Auth doesn't have organizations by default
+            organizationId: null,
         });
 
-        revalidatePath("/admin");
         revalidatePath("/");
+        revalidatePath("/admin");
 
         return {
             success: true,
             message: "Product submitted successfully!",
         };
-    } catch (error: unknown) {
+    } catch (error) {
         console.error(error);
+
         return {
             success: false,
             message: "Failed to submit product",
@@ -71,25 +77,63 @@ export const addProductAction = async (
 
 export const upvoteProductAction = async (productId: number) => {
     try {
-        const { userId } = await auth();
+        const session = await auth.api.getSession({
+            headers: await headers(),
+        });
 
-        if (!userId) {
-            return { success: false, message: "User not signed in" };
+        if (!session?.user) {
+            return {
+                success: false,
+                message: "User not signed in",
+            };
         }
 
+        // Check whether this user already voted
+        const existingVote = await db
+            .select()
+            .from(productVotes)
+            .where(
+                and(
+                    eq(productVotes.productId, productId),
+                    eq(productVotes.userId, session.user.id),
+                ),
+            )
+            .limit(1);
+
+        if (existingVote.length > 0) {
+            return {
+                success: false,
+                message: "Already voted",
+            };
+        }
+
+        // Save the vote
+        await db.insert(productVotes).values({
+            productId,
+            userId: session.user.id,
+        });
+
+        // Increment product score
         await db
             .update(products)
             .set({
-                // atomic increment
-                voteCount: sql`vote_count + 1`,
+                voteCount: sql`${products.voteCount} + 1`,
             })
             .where(eq(products.id, productId));
 
         revalidatePath("/");
+        revalidatePath("/explore");
 
-        return { success: true, message: "Upvoted!" };
-    } catch (error: unknown) {
+        return {
+            success: true,
+            message: "Vote recorded",
+        };
+    } catch (error) {
         console.error(error);
-        return { success: false, message: "Failed to upvote" };
+
+        return {
+            success: false,
+            message: "Failed to vote",
+        };
     }
 };

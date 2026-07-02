@@ -8,6 +8,41 @@
       "when": 1772367128530,
       "tag": "0000_left_sphinx",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1782977169714,
+      "tag": "0001_demonic_abomination",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782977349205,
+      "tag": "0002_talented_saracen",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1782983176258,
+      "tag": "0003_absurd_black_widow",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1782984116417,
+      "tag": "0004_hesitant_squadron_sinister",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1782990549978,
+      "tag": "0005_fixed_gressill",
+      "breakpoints": true
     }
   ]
 }

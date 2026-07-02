@@ -1,5 +1,8 @@
 "use server";
 
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { ADMIN_EMAILS } from "./admin-config";
 import { db } from "@/db";
 import { products } from "@/db/schema";
 import { ProductType } from "@/types";
@@ -7,26 +10,26 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export const approveProductAction = async (productId: ProductType["id"]) => {
-    console.log("Approve product", productId);
-
     try {
         await db
             .update(products)
-            .set({ status: "approved", approvedAt: new Date() })
+            .set({
+                status: "approved",
+                approvedAt: new Date(),
+            })
             .where(eq(products.id, productId));
 
+        revalidatePath("/");
         revalidatePath("/admin");
-        revalidatePath("/"); // Update homepage
 
         return {
             success: true,
-            message: "Product approved successfully",
+            message: "Product approved",
         };
-    } catch (error) {
-        console.error(error);
+    } catch {
         return {
             success: false,
-            message: "Failed to approve product",
+            message: "Failed",
         };
     }
 };
@@ -56,9 +59,7 @@ export const rejectProductAction = async (productId: ProductType["id"]) => {
 
 export const deleteProductAction = async (productId: number) => {
     try {
-        await db
-            .delete(products)
-            .where(eq(products.id, productId));
+        await db.delete(products).where(eq(products.id, productId));
 
         revalidatePath("/admin");
         revalidatePath("/"); // Update landing page if it was approved
@@ -69,3 +70,21 @@ export const deleteProductAction = async (productId: number) => {
         return { success: false, message: "Failed to delete product." };
     }
 };
+
+async function verifyAdmin() {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    if (!session?.user) {
+        throw new Error("Unauthorized");
+    }
+
+    const isAdmin = ADMIN_EMAILS.includes(session.user.email ?? "");
+
+    if (!isAdmin) {
+        throw new Error("Forbidden");
+    }
+
+    return session;
+}

@@ -9,15 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.39.0",
     "@hookform/resolvers": "^5.2.2",
     "@neondatabase/serverless": "^1.0.2",
     "@radix-ui/react-slot": "^1.2.4",
     "@vercel/analytics": "^2.0.1",
+    "better-auth": "^1.6.23",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.3.1",
     "drizzle-orm": "^0.45.1",
+    "jose": "^6.2.3",
     "lucide-react": "^0.575.0",
     "next": "16.2.0",
     "radix-ui": "^1.4.3",

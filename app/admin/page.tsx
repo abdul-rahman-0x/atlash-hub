@@ -3,9 +3,11 @@ import AdminProductCard from "@/components/admin/admin-product-card";
 import AdminStatsCard from "@/components/admin/stats-card";
 import EmptyState from "@/components/common/empty-state";
 import { getAllProducts } from "@/lib/products/product-select";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import { ShieldCheck, Clock3, History, Sparkles } from "lucide-react";
 import { redirect } from "next/navigation";
+import { ADMIN_EMAILS } from "@/lib/admin/admin-config";
 
 export const metadata: Metadata = {
     title: "Admin Dashboard | Atlash",
@@ -23,16 +25,15 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminPage() {
-    const { userId } = await auth();
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
 
-    if (!userId) {
+    if (!session?.user) {
         redirect("/sign-in");
     }
 
-    const client = await clerkClient();
-    const user = await client.users.getUser(userId);
-
-    const isAdmin = user.publicMetadata?.isAdmin ?? false;
+    const isAdmin = ADMIN_EMAILS.includes(session.user.email ?? "");
 
     if (!isAdmin) {
         redirect("/");
@@ -85,6 +86,7 @@ export default async function AdminPage() {
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-black/40">
                                         Pending Reviews
                                     </p>
+
                                     <p className="text-4xl font-black mt-2">
                                         {pendingProducts.length}
                                     </p>
