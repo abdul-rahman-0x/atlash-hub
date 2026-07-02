@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import ProductSubmitForm from "@/components/products/product-submit-form";
+import { Suspense } from "react";
+import SubmitContent from "./submit-content";
 
 export const metadata: Metadata = {
     title: "Launch Your Project",
@@ -50,7 +51,9 @@ export default function SubmitPage() {
         <section className="py-16 lg:py-24 bg-background">
             <div className="wrapper">
                 <div className="max-w-3xl mx-auto">
-                    <ProductSubmitForm />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <SubmitContent />
+                    </Suspense>
                 </div>
             </div>
         </section>

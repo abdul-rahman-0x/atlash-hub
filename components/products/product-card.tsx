@@ -13,9 +13,13 @@ import VotingButtons from "./voting-buttons";
 
 type Product = InferSelectModel<typeof products>;
 
-export default function ProductCard({ product }: { product: Product }) {
-    const hasVoted = false;
-
+export default function ProductCard({
+    product,
+    hasVoted = false,
+}: {
+    product: Product;
+    hasVoted?: boolean;
+}) {
     const getStatus = () => {
         if (product.voteCount >= 500) {
             return {

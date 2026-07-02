@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { products } from "@/db/schema";
 import { desc, eq, and, gte } from "drizzle-orm";
 import { connection } from "next/server";
+import { productVotes } from "@/db/schema";
 
 // 1. SPOTLIGHT: Sorted by most popular (Votes)
 export async function getFeaturedProducts() {
@@ -38,10 +39,10 @@ export async function getProductBySlug(slug: string) {
     const product = await db
         .select()
         .from(products)
-        .where(eq(products.slug, slug))
+        .where(and(eq(products.slug, slug), eq(products.status, "approved")))
         .limit(1);
 
-    return product?.[0] ?? null;
+    return product[0] ?? null;
 }
 
 export async function getAllApprovedProducts() {
@@ -53,11 +54,25 @@ export async function getAllApprovedProducts() {
 }
 
 export async function getAllProducts() {
-    "use cache";
     const productsData = await db
         .select()
         .from(products)
         .orderBy(desc(products.voteCount));
 
     return productsData;
+}
+
+export async function hasUserVoted(productId: number, userId: string) {
+    const vote = await db
+        .select()
+        .from(productVotes)
+        .where(
+            and(
+                eq(productVotes.productId, productId),
+                eq(productVotes.userId, userId),
+            ),
+        )
+        .limit(1);
+
+    return vote.length > 0;
 }

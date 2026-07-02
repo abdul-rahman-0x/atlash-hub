@@ -1,3 +1,6 @@
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { hasUserVoted } from "@/lib/products/product-select";
 import type { Metadata } from "next";
 import VotingButtons from "@/components/products/voting-buttons";
 import { Badge } from "@/components/ui/badge";
@@ -64,21 +67,6 @@ export async function generateMetadata({
     };
 }
 
-/**
- * Static Params
- */
-export const generateStaticParams = async () => {
-    const products = await getFeaturedProducts();
-
-    if (products.length === 0) {
-        return [{ slug: "initial-setup" }];
-    }
-
-    return products.map((product) => ({
-        slug: product.slug,
-    }));
-};
-
 export default async function ProductDetailPage({
     params,
 }: {
@@ -87,7 +75,13 @@ export default async function ProductDetailPage({
     const { slug } = await params;
     const product = await getProductBySlug(slug);
 
-    if (!product) notFound();
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    const hasVotedStatus = session?.user?.id
+        ? await hasUserVoted(product.id, session.user.id)
+        : false;
 
     const launchDate = product.createAt
         ? new Intl.DateTimeFormat("en-US", {
@@ -239,7 +233,7 @@ export default async function ProductDetailPage({
                             <VotingButtons
                                 productId={product.id}
                                 voteCount={product.voteCount}
-                                hasVoted={false}
+                                hasVoted={hasVotedStatus}
                             />
 
                             <p className="mt-6 text-sm font-medium text-black/60">
