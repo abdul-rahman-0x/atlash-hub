@@ -1,47 +1,140 @@
-import { ChevronLeft, Heart } from "lucide-react";
+import type { Metadata } from "next";
+import { ChevronLeft, Heart, Sparkles, Shield } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: "Community Guidelines",
+    description:
+        "Learn the principles that keep Atlash Hub a trusted place for builders, creators, and innovators to share products and collaborate.",
+    keywords: [
+        "Atlash community",
+        "community guidelines",
+        "product submission rules",
+        "builder community",
+        "startup showcase rules",
+        "creator guidelines",
+        "ethical product sharing",
+        "Atlash Hub standards",
+    ],
+};
 
 export default function GuidelinesPage() {
     return (
         <main className="py-16 lg:py-24 bg-background">
-            <div className="wrapper max-w-3xl">
-                {/* Back Link */}
-                <Link href="/" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary mb-12 transition-all group">
-                    <div className="p-1 rounded-md bg-secondary/50 group-hover:bg-primary/10 border border-foreground/5">
-                        <ChevronLeft className="size-4" />
-                    </div>
-                    Back to Home
-                </Link>
-
-                <div className="space-y-12">
-                    <div className="space-y-4 border-b-2 border-foreground/5 pb-8">
-                        <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-[0.2em] text-[10px]">
-                            <Heart className="size-4 fill-current" />
-                            Community Standards
+            <div className="wrapper max-w-4xl px-4 pt-10 pb-20">
+                {/* back */}
+                <div className="mb-8">
+                    <Link
+                        href="/"
+                        className="inline-flex items-center gap-3 group">
+                        <div
+                            className="
+                        p-2
+                        rounded-xl
+                        bg-[#FFB38A]
+                        border-2
+                        border-black
+                        shadow-[3px_3px_0px_0px_#000]
+                        transition-all
+                        group-hover:shadow-none
+                        group-hover:translate-x-[2px]
+                        group-hover:translate-y-[2px]
+                    ">
+                            <ChevronLeft className="size-4" />
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Community Rules</h1>
-                        <p className="text-muted-foreground font-medium lowercase">how we build, share, and grow together at atlash hub.</p>
-                    </div>
 
-                    <div className="space-y-8 text-lg text-muted-foreground leading-relaxed font-medium">
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-black text-foreground uppercase tracking-tight">1. Honest Submissions</h2>
-                            <p className="lowercase">we value authenticity. please only submit projects you have built or have a significant role in. ensure your descriptions and taglines accurately reflect what your infrastructure does.</p>
+                        <span className="font-black text-black/60 group-hover:text-black">
+                            back home
+                        </span>
+                    </Link>
+                </div>
+
+                <div className="space-y-14">
+                    {/* Hero */}
+                    <section className="bg-white border-2 border-black rounded-[32px] p-8 md:p-10 shadow-[8px_8px_0px_0px_#000]">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B19CFF] border-2 border-black mb-6">
+                            <Heart className="size-4 fill-current" />
+                            <span className="text-xs font-black uppercase">
+                                Community Principles
+                            </span>
+                        </div>
+
+                        <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
+                            Build with
+                            <br />
+                            integrity.
+                        </h1>
+
+                        <p className="text-lg md:text-xl text-black/60 leading-relaxed max-w-2xl">
+                            Atlash exists to celebrate builders shipping
+                            meaningful products. These guidelines help us keep
+                            the community authentic, supportive, and valuable
+                            for everyone.
+                        </p>
+                    </section>
+
+                    {/* Rules */}
+                    <div className="space-y-8">
+                        <section className="bg-white border-2 border-black rounded-[28px] p-8 shadow-[6px_6px_0px_0px_#000]">
+                            <div className="flex items-center gap-3 mb-5">
+                                <Sparkles className="size-5 text-[#B19CFF]" />
+                                <h2 className="text-2xl font-black">
+                                    Share what you&apos;ve built
+                                </h2>
+                            </div>
+
+                            <p className="text-lg text-black/70 leading-relaxed">
+                                Submit products you have personally created,
+                                contributed to, or helped launch. Authenticity
+                                builds trust, and trust builds communities worth
+                                joining.
+                            </p>
                         </section>
 
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-black text-foreground uppercase tracking-tight">2. Respectful Interaction</h2>
-                            <p className="lowercase">atlash is a space for architects to support one another. keep feedback constructive and kind. harassment or exclusionary behavior will result in immediate removal from the community.</p>
+                        <section className="bg-white border-2 border-black rounded-[28px] p-8 shadow-[6px_6px_0px_0px_#000]">
+                            <div className="flex items-center gap-3 mb-5">
+                                <Heart className="size-5 text-[#FFB38A]" />
+                                <h2 className="text-2xl font-black">
+                                    Support fellow builders
+                                </h2>
+                            </div>
+
+                            <p className="text-lg text-black/70 leading-relaxed">
+                                Great products come from great communities.
+                                Offer thoughtful feedback, celebrate launches,
+                                and help others improve their work.
+                            </p>
                         </section>
 
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-black text-foreground uppercase tracking-tight">3. Quality Standards</h2>
-                            <p className="lowercase">while we welcome all levels of builders, we strive for high-quality listings. please ensure your links are active, your tags are relevant, and your descriptions provide real value to other architects.</p>
+                        <section className="bg-white border-2 border-black rounded-[28px] p-8 shadow-[6px_6px_0px_0px_#000]">
+                            <div className="flex items-center gap-3 mb-5">
+                                <Shield className="size-5 text-[#B19CFF]" />
+                                <h2 className="text-2xl font-black">
+                                    Maintain quality
+                                </h2>
+                            </div>
+
+                            <p className="text-lg text-black/70 leading-relaxed">
+                                Use accurate descriptions, active links,
+                                meaningful tags, and showcase real value.
+                                Quality submissions help everyone discover
+                                better products.
+                            </p>
                         </section>
 
-                        <section className="space-y-4">
-                            <h2 className="text-xl font-black text-foreground uppercase tracking-tight">4. Safety & Integrity</h2>
-                            <p className="lowercase">do not upload malicious code, phishing links, or unauthorized assets. we take system integrity seriously to maintain the trust of everyone in the atlash ecosystem.</p>
+                        <section className="bg-white border-2 border-black rounded-[28px] p-8 shadow-[6px_6px_0px_0px_#000]">
+                            <div className="flex items-center gap-3 mb-5">
+                                <Shield className="size-5 text-[#FFB38A]" />
+                                <h2 className="text-2xl font-black">
+                                    Protect the ecosystem
+                                </h2>
+                            </div>
+
+                            <p className="text-lg text-black/70 leading-relaxed">
+                                Malicious software, phishing attempts, spam, and
+                                deceptive content have zero tolerance. We work
+                                hard to keep Atlash safe for every builder.
+                            </p>
                         </section>
                     </div>
                 </div>
