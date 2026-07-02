@@ -45,7 +45,12 @@ export default function RootLayout({
                     <Header />
                     <main className="relative z-10 flex-1">{children}</main>
                     <Footer />
-                    <Toaster position="bottom-right" richColors />
+                    <Toaster
+                        position="bottom-right"
+                        richColors
+                        closeButton
+                        expand
+                    />
                     <Analytics />
                 </body>
             </html>
