@@ -1,15 +1,25 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 import AdminProductCard from "@/components/admin/admin-product-card";
-import AdminStatsCard from "@/components/admin/stats-card"; // Renamed for clarity
+import AdminStatsCard from "@/components/admin/stats-card";
 import EmptyState from "@/components/common/empty-state";
-import SectionHeader from "@/components/common/section-header";
 import { getAllProducts } from "@/lib/products/product-select";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { History, ShieldAlert, ShieldCheck } from "lucide-react"; // Swapped for Oversight icons
+import { ShieldCheck, Clock3, History, Sparkles } from "lucide-react";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-    title: "System Oversight Hub | Atlash Hub",
+    title: "Admin Dashboard | Atlash",
+    description:
+        "Internal moderation dashboard for reviewing, approving and managing community submissions on Atlash.",
+    keywords: [
+        "admin dashboard",
+        "moderation panel",
+        "product review",
+        "startup directory",
+        "internal tools",
+        "dashboard ui",
+        "atlash",
+    ],
 };
 
 export default async function AdminPage() {
@@ -20,10 +30,9 @@ export default async function AdminPage() {
     }
 
     const client = await clerkClient();
-    const user = await client.users.getUser(userId!);
+    const user = await client.users.getUser(userId);
 
-    const metadata = user.publicMetadata;
-    const isAdmin = metadata?.isAdmin ?? false;
+    const isAdmin = user.publicMetadata?.isAdmin ?? false;
 
     if (!isAdmin) {
         redirect("/");
@@ -32,83 +41,144 @@ export default async function AdminPage() {
     const allProducts = await getAllProducts();
 
     const pendingProducts = allProducts.filter(
-        (product) => product.status === "pending"
+        (product) => product.status === "pending",
+    );
+
+    const approvedProducts = allProducts.filter(
+        (product) => product.status === "approved",
+    );
+
+    const rejectedProducts = allProducts.filter(
+        (product) => product.status === "rejected",
     );
 
     return (
-        <main className="py-16 lg:py-24 bg-background">
+        <main className="bg-background py-12 lg:py-20">
             <div className="wrapper">
-                {/* 1. PROFESSIONAL COMMAND HEADER */}
-                <div className="mb-16">
-                    <SectionHeader
-                        title="System Oversight Hub"
-                        icon={ShieldCheck}
-                        description="Infrastructure Audit & Deployment Authorization Control Plane. Maintain 100% architectural compliance across the global registry."
-                        hideButton={true}
-                        tagline="Administrative Control"
-                    />
-                </div>
+                {/* HERO */}
+                <section className="mb-16">
+                    <div className="rounded-[36px] border-2 border-black bg-white p-8 md:p-10 shadow-[8px_8px_0px_0px_#000]">
+                        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                            <div className="max-w-3xl">
+                                <div className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#B19CFF] px-4 py-2 mb-6">
+                                    <Sparkles className="size-4" />
+                                    <span className="text-xs font-black uppercase">
+                                        Internal Dashboard
+                                    </span>
+                                </div>
 
-                {/* 2. INFRASTRUCTURE TELEMETRY (STATS) */}
-                <div className="p-2 bg-secondary/5 rounded-[2.5rem] border-2 border-foreground/5 mb-20">
-                    <AdminStatsCard
-                        approved={allProducts.filter(p => p.status === "approved").length}
-                        pending={pendingProducts.length}
-                        rejected={allProducts.filter(p => p.status === "rejected").length}
-                        all={allProducts.length}
-                    />
-                </div>
+                                <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
+                                    Community
+                                    <br />
+                                    Review Center
+                                </h1>
 
-                {/* 3. PENDING AUDIT LOGS */}
-                <section className="my-16 space-y-10">
-                    <div className="flex items-center gap-3">
-                        <div className="size-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                            <ShieldAlert className="size-5 text-amber-500" />
+                                <p className="text-lg text-black/60 max-w-2xl leading-relaxed">
+                                    Review submissions, approve launches,
+                                    moderate content, and maintain the quality
+                                    of the Atlash ecosystem.
+                                </p>
+                            </div>
+
+                            <div className="flex flex-col gap-4 min-w-[240px]">
+                                <div className="rounded-3xl border-2 border-black bg-[#F9F7F0] p-5">
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-black/40">
+                                        Pending Reviews
+                                    </p>
+                                    <p className="text-4xl font-black mt-2">
+                                        {pendingProducts.length}
+                                    </p>
+                                </div>
+
+                                <div className="rounded-3xl border-2 border-black bg-[#FFB38A] p-5">
+                                    <div className="flex items-center gap-2">
+                                        <ShieldCheck className="size-5" />
+                                        <span className="font-black">
+                                            Admin Access
+                                        </span>
+                                    </div>
+
+                                    <p className="text-sm mt-2 text-black/70">
+                                        Moderation privileges enabled.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h2 className="text-2xl font-black uppercase tracking-tight text-foreground">
-                                Pending Infrastructure Audit
-                            </h2>
-                            <p className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-[0.2em]">
-                                {pendingProducts.length} Deployment nodes awaiting authorization
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="space-y-6">
-                        {pendingProducts.length === 0 ? (
-                            <EmptyState
-                                message="Infrastructure Pipeline: Optimal"
-                                description="All pending deployment logs have been authorized. System registry is currently synchronized."
-                                icon={ShieldCheck}
-                            />
-                        ) : (
-                            pendingProducts.map((product) => (
-                                <AdminProductCard key={product.id} product={product} />
-                            ))
-                        )}
                     </div>
                 </section>
 
-                {/* 4. HISTORICAL AUDIT LOGS */}
-                <section className="my-16 pt-16 border-t-2 border-foreground/5 space-y-10">
-                    <div className="flex items-center gap-3">
-                        <div className="size-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                            <History className="size-5 text-primary" />
+                {/* STATS */}
+                <section className="mb-20">
+                    <div className="rounded-[32px] border-2 border-black bg-white p-3 shadow-[6px_6px_0px_0px_#000]">
+                        <AdminStatsCard
+                            approved={approvedProducts.length}
+                            pending={pendingProducts.length}
+                            rejected={rejectedProducts.length}
+                            all={allProducts.length}
+                        />
+                    </div>
+                </section>
+
+                {/* PENDING */}
+                <section className="mb-20">
+                    <div className="flex items-center gap-4 mb-10">
+                        <div className="flex size-14 items-center justify-center rounded-2xl border-2 border-black bg-[#FFB38A]">
+                            <Clock3 className="size-6" />
                         </div>
+
                         <div>
-                            <h2 className="text-2xl font-black uppercase tracking-tight text-foreground">
-                                Global Audit Logs
+                            <h2 className="text-3xl font-black">
+                                Awaiting Review
                             </h2>
-                            <p className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-[0.2em]">
-                                Full history of processed infrastructure nodes
+
+                            <p className="text-black/50">
+                                Submissions waiting for approval or rejection.
                             </p>
                         </div>
                     </div>
 
-                    <div className="space-y-4 opacity-80 hover:opacity-100 transition-opacity">
+                    {pendingProducts.length === 0 ? (
+                        <EmptyState
+                            message="Inbox Zero"
+                            description="All submissions have been reviewed. Great work."
+                            icon={ShieldCheck}
+                        />
+                    ) : (
+                        <div className="space-y-6">
+                            {pendingProducts.map((product) => (
+                                <AdminProductCard
+                                    key={product.id}
+                                    product={product}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </section>
+
+                {/* HISTORY */}
+                <section className="pt-16 border-t-2 border-black/10">
+                    <div className="flex items-center gap-4 mb-10">
+                        <div className="flex size-14 items-center justify-center rounded-2xl border-2 border-black bg-[#B19CFF]">
+                            <History className="size-6" />
+                        </div>
+
+                        <div>
+                            <h2 className="text-3xl font-black">
+                                Review History
+                            </h2>
+
+                            <p className="text-black/50">
+                                Complete record of processed submissions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
                         {allProducts.map((product) => (
-                            <AdminProductCard key={product.id} product={product} />
+                            <AdminProductCard
+                                key={product.id}
+                                product={product}
+                            />
                         ))}
                     </div>
                 </section>
