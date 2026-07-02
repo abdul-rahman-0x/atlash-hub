@@ -9,8 +9,8 @@ export default async function FeaturedProducts() {
         <section className="py-24 bg-[#F9F7F0] relative">
             <div className="wrapper">
                 <SectionHeader
-                    title="Featured Today"
-                    description="The most liked projects shared by our friends this week."
+                    title="Projects Worth Your Attention"
+                    description="A curated selection of products gaining momentum across the builder community."
                     href="/explore"
                 />
 
