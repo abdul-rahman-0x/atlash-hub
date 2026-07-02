@@ -3,10 +3,11 @@
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
 import { addProductAction } from "@/lib/products/product-actions";
-import { cn } from "@/lib/utils";
 import { FormState } from "@/types";
-import { Loader2, Zap, LayoutPanelTop } from "lucide-react";
-import { useActionState } from "react";
+import { Loader2, ChevronLeft, Rocket, Users } from "lucide-react";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
+import Link from "next/link";
 
 const initialState: FormState = {
     success: false,
@@ -17,10 +18,20 @@ const initialState: FormState = {
 export default function ProductSubmitForm() {
     const [state, formAction, isPending] = useActionState(
         addProductAction,
-        initialState
+        initialState,
     );
 
-    const { errors, message, success } = state;
+    const { errors, success } = state;
+
+    useEffect(() => {
+        if (success) {
+            toast.success("Product submitted successfully", {
+                description:
+                    "Your project is now under review and will appear after approval.",
+                duration: 5000,
+            });
+        }
+    }, [success]);
 
     const getFieldErrors = (fieldName: string): string[] => {
         if (!errors) return [];
@@ -28,114 +39,235 @@ export default function ProductSubmitForm() {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto px-4">
-
-            <div className="mb-6 space-y-1 border-l-4 border-primary/20 pl-4">
-                <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-[0.2em] text-[10px]">
-                    <div className="p-1 bg-primary/10 rounded-md">
-                        <LayoutPanelTop className="size-3.5" />
+        <div className="max-w-5xl mx-auto px-4 pt-10 pb-20">
+            {/* back */}
+            <div className="mb-8">
+                <Link href="/" className="inline-flex items-center gap-3 group">
+                    <div
+                        className="
+                        p-2
+                        rounded-xl
+                        bg-[#FFB38A]
+                        border-2
+                        border-black
+                        shadow-[3px_3px_0px_0px_#000]
+                        transition-all
+                        group-hover:shadow-none
+                        group-hover:translate-x-[2px]
+                        group-hover:translate-y-[2px]
+                    ">
+                        <ChevronLeft className="size-4" />
                     </div>
-                    Submit Product
-                </div>
 
-                <h1 className="text-2xl md:text-3xl font-black tracking-tight text-foreground uppercase">
-                    Share your creation
-                </h1>
+                    <span className="font-black text-black/60 group-hover:text-black">
+                        back home
+                    </span>
+                </Link>
             </div>
 
-            <form action={formAction} className="flex flex-col gap-6 bg-secondary/5 p-6 md:p-8 rounded-2xl border-2 border-foreground/5 overflow-hidden shadow-xl">
+            {/* hero */}
+            <section className="mb-12">
+                <h1
+                    className="
+                    text-[clamp(2.2rem,5vw,4rem)]
+                    font-black
+                    leading-[0.95]
+                    tracking-tight
+                    max-w-4xl
+                ">
+                    Share what you&apos;ve
+                    <span
+                        className="
+                        inline-block
+                        mx-3
+                        px-5
+                        py-1
+                        bg-[#FFB38A]
+                        border-4
+                        border-black
+                        rounded-2xl
+                        shadow-[5px_5px_0px_0px_#000]
+                        -rotate-2
+                        text-white
+                        italic
+                    ">
+                        built
+                    </span>
+                    with the community.
+                </h1>
 
-                {message && (
-                    <div className={cn(
-                        "p-3 rounded-lg border font-bold text-xs animate-in slide-in-from-top-2 duration-300",
-                        success ? "bg-primary/10 border-primary/20 text-primary" : "bg-destructive/10 border-destructive/20 text-destructive"
-                    )}>
-                        {message}
+                <p
+                    className="
+                    mt-5
+                    text-lg
+                    text-black/65
+                    max-w-2xl
+                    font-medium
+                    leading-relaxed
+                ">
+                    Launch your startup, side project, AI tool, developer
+                    product or experiment and get discovered by builders
+                    worldwide.
+                </p>
+
+                {/* stats */}
+                <div className="flex flex-wrap gap-4 mt-8">
+                    <div
+                        className="
+                        bg-white
+                        border-2
+                        border-black
+                        rounded-2xl
+                        px-5
+                        py-4
+                        shadow-[4px_4px_0px_0px_#000]
+                    ">
+                        <div className="flex gap-2 items-center mb-1">
+                            <Rocket className="size-4" />
+                            <span className="text-xs font-black uppercase">
+                                launches
+                            </span>
+                        </div>
+
+                        <p className="text-3xl font-black">500+</p>
                     </div>
-                )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+                    <div
+                        className="
+                        bg-white
+                        border-2
+                        border-black
+                        rounded-2xl
+                        px-5
+                        py-4
+                        shadow-[4px_4px_0px_0px_#000]
+                    ">
+                        <div className="flex gap-2 items-center mb-1">
+                            <Users className="size-4" />
+                            <span className="text-xs font-black uppercase">
+                                makers
+                            </span>
+                        </div>
 
-                    {/* LEFT COLUMN */}
-                    <div className="space-y-5">
+                        <p className="text-3xl font-black">2k+</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* form */}
+            <form
+                action={formAction}
+                className="
+                    bg-white
+                    border-2
+                    border-black
+                    rounded-[28px]
+                    p-8
+                    md:p-10
+                    shadow-[8px_8px_0px_0px_#000]
+                    space-y-8
+                ">
+                <div className="grid md:grid-cols-2 gap-8">
+                    <FormField
+                        label="name"
+                        name="name"
+                        id="name"
+                        placeholder="Linear"
+                        required
+                        onChange={() => {}}
+                        error={getFieldErrors("name")}
+                    />
+
+                    <FormField
+                        label="website"
+                        name="websiteUrl"
+                        id="websiteUrl"
+                        placeholder="https://linear.app"
+                        required
+                        onChange={() => {}}
+                        error={getFieldErrors("websiteUrl")}
+                    />
+
+                    <FormField
+                        label="slug"
+                        name="slug"
+                        id="slug"
+                        placeholder="linear"
+                        required
+                        onChange={() => {}}
+                        error={getFieldErrors("slug")}
+                    />
+
+                    <FormField
+                        label="short intro"
+                        name="tagline"
+                        id="tagline"
+                        placeholder="Issue tracking you'll enjoy using"
+                        required
+                        onChange={() => {}}
+                        error={getFieldErrors("tagline")}
+                    />
+
+                    <div className="md:col-span-2">
                         <FormField
-                            label="Product Name"
-                            name="name"
-                            id="name"
-                            placeholder="My Awesome Product"
-                            required
-                            onChange={() => { }}
-                            error={getFieldErrors("name")}
-                        />
-                        <FormField
-                            label="Slug"
-                            name="slug"
-                            id="slug"
-                            placeholder="my-product-slug"
-                            required
-                            onChange={() => { }}
-                            error={getFieldErrors("slug")}
-                        />
-                        <FormField
-                            label="Tags"
+                            label="tags"
                             name="tags"
                             id="tags"
-                            placeholder="AI, Productivity, SaaS"
+                            placeholder="saas, productivity, developer-tools"
                             required
-                            onChange={() => { }}
+                            onChange={() => {}}
                             error={getFieldErrors("tags")}
-                        />
-                    </div>
-
-                    {/* RIGHT COLUMN */}
-                    <div className="space-y-5">
-                        <FormField
-                            label="Website URL"
-                            name="websiteUrl"
-                            id="websiteUrl"
-                            placeholder="https://yourproduct.com"
-                            required
-                            onChange={() => { }}
-                            error={getFieldErrors("websiteUrl")}
-                        />
-                        <FormField
-                            label="Tagline"
-                            name="tagline"
-                            id="tagline"
-                            placeholder="A brief, catchy description"
-                            required
-                            onChange={() => { }}
-                            error={getFieldErrors("tagline")}
                         />
                     </div>
 
                     <div className="md:col-span-2">
                         <FormField
-                            label="Description"
+                            label="full story"
                             name="description"
                             id="description"
-                            placeholder="Tell us more about your product..."
+                            placeholder="Tell the community what you built, why you built it and who it's for..."
                             required
-                            onChange={() => { }}
+                            onChange={() => {}}
                             error={getFieldErrors("description")}
                             textarea
                         />
                     </div>
                 </div>
 
-                <div className="pt-2 border-t border-foreground/5">
+                <div
+                    className="
+                    border-t
+                    border-black/10
+                    pt-8
+                    flex
+                    justify-between
+                    items-center
+                    gap-6
+                    flex-wrap
+                ">
+                    <div>
+                        <p className="font-black text-sm">Ready to launch?</p>
+
+                        <p className="text-sm text-black/50">
+                            Your submission will be reviewed first.
+                        </p>
+                    </div>
+
                     <Button
                         type="submit"
-                        size="lg"
                         disabled={isPending}
-                        className="w-full h-12 text-sm font-black uppercase tracking-[0.15em] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none transition-all"
-                    >
+                        size="lg"
+                        className="
+                            min-w-[220px]
+                            text-base
+                            font-black
+                        ">
                         {isPending ? (
                             <Loader2 className="size-5 animate-spin" />
                         ) : (
                             <>
-                                <Zap className="size-4 mr-2 fill-current" />
-                                Submit Product
+                                <Rocket className="mr-2 size-5" />
+                                Launch Project
                             </>
                         )}
                     </Button>

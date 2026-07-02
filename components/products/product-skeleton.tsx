@@ -8,73 +8,87 @@ interface ProductSkeletonProps {
 
 export default function ProductSkeleton({
     itemCount = 6,
-    titleWidth = "w-64",
+    titleWidth = "w-72",
     sectionClassName = "py-24 bg-background",
 }: ProductSkeletonProps) {
     return (
         <section className={sectionClassName}>
             <div className="wrapper">
-                {/* 1. HEADER SECTION */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 border-b border-foreground/5 pb-10">
-                    <div className="space-y-5 flex-1">
-                        {/* ICON + SMALL LABEL */}
-                        <div className="flex items-center gap-2">
-                            <Skeleton className="size-4 rounded bg-primary/20 border border-primary/10" />
-                            <Skeleton className="h-3 w-48 bg-foreground/10 rounded-full" />
-                        </div>
+                {/* HEADER */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+                    <div className="space-y-4">
+                        {/* Title */}
+                        <Skeleton
+                            className={`h-11 ${titleWidth} rounded-xl bg-foreground/25`}
+                        />
 
-                        {/* MAIN HEADING */}
-                        <Skeleton className={`h-10 ${titleWidth} bg-foreground/30 rounded-lg`} />
-
-                        {/* DESCRIPTION */}
+                        {/* Description */}
                         <div className="space-y-2">
-                            <Skeleton className="h-4 w-80 bg-foreground/10 rounded-md" />
+                            <Skeleton className="h-4 w-[320px] rounded-md bg-foreground/10" />
                         </div>
                     </div>
 
-                    {/* CTA BUTTON */}
-                    <div className="shrink-0 hidden md:block">
-                        <Skeleton className="h-11 w-44 rounded-full border border-foreground/10 bg-foreground/5" />
-                    </div>
+                    {/* CTA */}
+                    <Skeleton className="hidden md:block h-12 w-36 rounded-2xl bg-foreground/5 border border-foreground/10" />
                 </div>
 
-                {/* 2. PRODUCT GRID */}
+                {/* PRODUCT GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {Array.from({ length: itemCount }).map((_, index) => (
                         <div
                             key={index}
-                            className="relative bg-secondary/5 border border-foreground/5 rounded-[2rem] p-8 min-h-[260px] flex flex-col justify-between"
-                        >
-                            {/* ELITE NODE BADGE */}
-                            <div className="absolute top-6 right-8">
-                                <Skeleton className="h-5 w-20 rounded-full bg-primary/10 border border-primary/5" />
-                            </div>
+                            className="
+                                relative
+                                bg-secondary/5
+                                border
+                                border-foreground/5
+                                rounded-4xl
+                                p-7
+                                min-h-[340px]
+                                flex
+                                flex-col
+                                justify-between
+                            ">
+                            {/* Top */}
+                            <div className="flex items-start justify-between gap-4">
+                                <div className="space-y-4 flex-1">
+                                    {/* Title */}
+                                    <Skeleton className="h-8 w-3/4 rounded-lg bg-foreground/25" />
 
-                            <div className="flex justify-between items-start gap-4">
-                                <div className="space-y-5 flex-1">
-                                    {/* CARD TITLE */}
-                                    <Skeleton className="h-6 w-1/2 bg-foreground/30 rounded-md" />
-
-                                    {/* CARD DESCRIPTION */}
-                                    <div className="space-y-2.5">
-                                        <Skeleton className="h-2.5 w-full bg-foreground/10 rounded-full" />
-                                        <Skeleton className="h-2.5 w-4/5 bg-foreground/10 rounded-full" />
+                                    {/* Description */}
+                                    <div className="space-y-2">
+                                        <Skeleton className="h-4 w-full rounded-md bg-foreground/10" />
+                                        <Skeleton className="h-4 w-[85%] rounded-md bg-foreground/10" />
+                                        <Skeleton className="h-4 w-[65%] rounded-md bg-foreground/10" />
                                     </div>
                                 </div>
 
-                                {/* VOTE BOX */}
-                                <div className="mt-12 flex flex-col border border-foreground/10 rounded-xl bg-background/50 overflow-hidden shrink-0">
-                                    <Skeleton className="h-7 w-10 rounded-none bg-foreground/10" />
-                                    <div className="py-2 flex justify-center">
-                                        <Skeleton className="size-2.5 rounded-sm bg-foreground/20" />
-                                    </div>
+                                {/* Vote Box */}
+                                <div className="flex flex-col items-center gap-2 shrink-0">
+                                    <Skeleton className="h-14 w-14 rounded-2xl bg-foreground/10 border border-foreground/5" />
+                                    <Skeleton className="h-3 w-8 rounded-full bg-foreground/15" />
                                 </div>
                             </div>
 
-                            {/* TAG PILLS */}
-                            <div className="flex gap-2 pt-6">
-                                <Skeleton className="h-6 w-12 rounded-full bg-foreground/5 border border-foreground/10" />
-                                <Skeleton className="h-6 w-20 rounded-full bg-foreground/5 border border-foreground/10" />
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-2 mt-8">
+                                <Skeleton className="h-8 w-20 rounded-full bg-foreground/5 border border-foreground/10" />
+                                <Skeleton className="h-8 w-24 rounded-full bg-foreground/5 border border-foreground/10" />
+                                <Skeleton className="h-8 w-16 rounded-full bg-foreground/5 border border-foreground/10" />
+                            </div>
+
+                            {/* Footer */}
+                            <div className="flex items-center justify-between pt-8 mt-8 border-t border-foreground/5">
+                                <div className="flex items-center gap-3">
+                                    <Skeleton className="size-10 rounded-xl bg-foreground/10" />
+
+                                    <div className="space-y-2">
+                                        <Skeleton className="h-3 w-20 rounded-full bg-foreground/10" />
+                                        <Skeleton className="h-3 w-28 rounded-full bg-foreground/10" />
+                                    </div>
+                                </div>
+
+                                <Skeleton className="h-10 w-24 rounded-xl bg-foreground/5 border border-foreground/10" />
                             </div>
                         </div>
                     ))}

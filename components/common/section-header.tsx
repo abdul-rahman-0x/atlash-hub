@@ -1,52 +1,38 @@
-import { ArrowRight, LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
 interface SectionHeaderProps {
     title: string;
-    icon: LucideIcon;
     description?: string;
     href?: string;
     hideButton?: boolean;
-    tagline?: string; // NEW: Added tagline prop for flexibility
 }
 
 export default function SectionHeader({
     title,
-    icon: Icon,
     description,
     href = "/explore",
     hideButton = false,
-    tagline = "Infrastructure Intelligence", // Updated default for Atlash
 }: SectionHeaderProps) {
     return (
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-foreground/5 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8">
             <div className="space-y-3">
-                {/* Updated Brand Tagline for Atlash */}
-                <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-[0.2em] text-[10px]">
-                    <div className="p-1.5 bg-primary/10 rounded-lg border border-primary/20">
-                        <Icon className="size-4" />
-                    </div>
-                    {tagline}
-                </div>
-
-                <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-none">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground leading-none">
                     {title}
                 </h2>
 
                 {description && (
-                    <p className="text-muted-foreground font-medium max-w-xl leading-relaxed">
+                    <p className="text-muted-foreground font-medium max-w-xl leading-relaxed text-sm">
                         {description}
                     </p>
                 )}
             </div>
-
-            {/* FIX: Enterprise-grade button text */}
             {!hideButton && (
                 <div className="shrink-0">
-                    <Button variant="outline" asChild className="font-bold border-foreground/10 hover:bg-primary/5">
+                    <Button asChild variant="default">
                         <Link href={href} className="group">
-                            Access Global Directory
+                            View All
                             <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
                         </Link>
                     </Button>
