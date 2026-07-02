@@ -39,7 +39,7 @@ export default function ProductDetailSkeleton() {
                         </div>
 
                         {/* ABOUT CARD */}
-                        <div className="bg-white border-2 border-black rounded-[2rem] p-8 md:p-10 shadow-[6px_6px_0px_0px_#000]">
+                        <div className="bg-white border-2 border-black rounded-4xl p-8 md:p-10 shadow-[6px_6px_0px_0px_#000]">
                             {/* Header */}
                             <div className="flex items-center gap-4 mb-8">
                                 <Skeleton className="h-3 w-24 rounded-full bg-foreground/15" />
@@ -80,7 +80,7 @@ export default function ProductDetailSkeleton() {
                     {/* RIGHT SIDEBAR */}
                     <div className="lg:col-span-4 space-y-6">
                         {/* Vote Card */}
-                        <div className="bg-secondary/5 border border-foreground/5 rounded-[2rem] p-8 flex flex-col items-center text-center">
+                        <div className="bg-secondary/5 border border-foreground/5 rounded-4xl p-8 flex flex-col items-center text-center">
                             <Skeleton className="h-4 w-40 rounded-full bg-foreground/15 mb-8" />
 
                             {/* Vote Counter */}
