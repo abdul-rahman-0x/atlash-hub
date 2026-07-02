@@ -2,7 +2,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { AlertCircle } from "lucide-react"; // Added for Error States
+import { AlertCircle } from "lucide-react";
 
 interface FormFieldProps {
     label: string;
@@ -13,7 +13,7 @@ interface FormFieldProps {
     onChange: (
         e:
             | React.ChangeEvent<HTMLInputElement>
-            | React.ChangeEvent<HTMLTextAreaElement>
+            | React.ChangeEvent<HTMLTextAreaElement>,
     ) => void;
     error: string[];
     helperText?: string;
@@ -31,7 +31,6 @@ export const FormField = ({
     helperText,
     textarea,
 }: FormFieldProps) => {
-
     const hasError = error.length > 0;
 
     return (
@@ -39,10 +38,11 @@ export const FormField = ({
             {/* 1. INDUSTRIAL LABEL: High tracking and black weight */}
             <Label
                 htmlFor={id}
-                className="text-[10px] font-black uppercase tracking-[0.25em] text-foreground/50 ml-1 flex items-center gap-1.5 transition-colors group-focus-within:text-primary"
-            >
+                className="text-[10px] font-black uppercase tracking-[0.25em] text-foreground/50 ml-1 flex items-center gap-1.5 transition-colors group-focus-within:text-primary">
                 {label}
-                {required && <span className="text-primary text-xs leading-none">*</span>}
+                {required && (
+                    <span className="text-primary text-xs leading-none">*</span>
+                )}
             </Label>
 
             {/* 2. INPUT / TEXTAREA: Deep contrast with Sage focus */}
@@ -54,10 +54,13 @@ export const FormField = ({
                     required={required}
                     className={cn(
                         "min-h-[140px] bg-background border-2 border-foreground/5 focus:border-primary/50 rounded-xl transition-all resize-none px-4 py-4 text-base font-medium placeholder:text-muted-foreground/30 shadow-inner",
-                        hasError && "border-destructive/50 focus:border-destructive"
+                        hasError &&
+                            "border-destructive/50 focus:border-destructive",
                     )}
                     onChange={
-                        onChange as (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+                        onChange as (
+                            e: React.ChangeEvent<HTMLTextAreaElement>,
+                        ) => void
                     }
                 />
             ) : (
@@ -69,10 +72,13 @@ export const FormField = ({
                     aria-invalid={hasError}
                     className={cn(
                         "h-13 bg-background border-2 border-foreground/5 focus:border-primary/50 rounded-xl transition-all px-4 text-base font-medium placeholder:text-muted-foreground/30 shadow-inner",
-                        hasError && "border-destructive/50 focus:border-destructive"
+                        hasError &&
+                            "border-destructive/50 focus:border-destructive",
                     )}
                     onChange={
-                        onChange as (e: React.ChangeEvent<HTMLInputElement>) => void
+                        onChange as (
+                            e: React.ChangeEvent<HTMLInputElement>,
+                        ) => void
                     }
                 />
             )}
