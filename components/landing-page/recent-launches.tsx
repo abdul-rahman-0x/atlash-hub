@@ -11,8 +11,8 @@ export default async function RecentLaunches() {
         <section className="py-24 bg-background">
             <div className="wrapper">
                 <SectionHeader
-                    title="Recently Launched"
-                    description="Take a look at the latest creations added to the hub."
+                    title="Fresh From The Builders"
+                    description="The latest startups, side projects and experiments launched by our community."
                     href="/explore"
                 />
 
@@ -24,8 +24,8 @@ export default async function RecentLaunches() {
                     </div>
                 ) : (
                     <EmptyState
-                        message="it is a quiet week!"
-                        description="we are waiting for some cool new stuff. check back soon or be the first to share!"
+                        message="it's a quiet week!"
+                        description="We're waiting for the next great launch. Check back soon or become the first builder to ship something new."
                         icon={Calendar}
                     />
                 )}
