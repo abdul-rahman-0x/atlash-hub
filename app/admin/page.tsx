@@ -3,12 +3,8 @@ import AdminProductCard from "@/components/admin/admin-product-card";
 import AdminStatsCard from "@/components/admin/stats-card";
 import EmptyState from "@/components/common/empty-state";
 import { getAllProducts } from "@/lib/products/product-select";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 import { ShieldCheck, Clock3, History, Sparkles } from "lucide-react";
-import { redirect } from "next/navigation";
-import { ADMIN_EMAILS } from "@/lib/admin/admin-config";
-
+import { verifyAdmin } from "@/lib/admin/verify-admin";
 export const metadata: Metadata = {
     title: "Admin Dashboard | Atlash",
     description:
@@ -25,19 +21,12 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminPage() {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-
-    if (!session?.user) {
-        redirect("/sign-in");
-    }
-
-    const isAdmin = ADMIN_EMAILS.includes(session.user.email ?? "");
-
-    if (!isAdmin) {
-        redirect("/");
-    }
+    /**
+     * Verify that the current request belongs
+     * to an authenticated administrator before
+     * rendering the moderation dashboard.
+     */
+    await verifyAdmin();
 
     const allProducts = await getAllProducts();
 

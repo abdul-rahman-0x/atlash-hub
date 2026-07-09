@@ -1,16 +1,30 @@
 "use server";
 
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { ADMIN_EMAILS } from "./admin-config";
 import { db } from "@/db";
 import { products } from "@/db/schema";
+import { verifyAdmin } from "./verify-admin";
 import { ProductType } from "@/types";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
+/**
+ *
+ * These server actions power the internal moderation dashboard.
+ *
+ * Every action is protected by the centralized verifyAdmin()
+ * helper before any database operation is performed.
+ *
+ * This keeps authentication and authorization logic separated
+ * from business logic and makes future RBAC expansion much easier.
+ */
+
+/**
+ * Approve a pending product submission.
+ */
 export const approveProductAction = async (productId: ProductType["id"]) => {
     try {
+        await verifyAdmin();
+
         await db
             .update(products)
             .set({
@@ -24,67 +38,73 @@ export const approveProductAction = async (productId: ProductType["id"]) => {
 
         return {
             success: true,
-            message: "Product approved",
+            message: "Product approved successfully.",
         };
-    } catch {
+    } catch (error) {
+        console.error(error);
+
         return {
             success: false,
-            message: "Failed",
+            message: "Failed to approve product.",
         };
     }
 };
 
+/**
+ * Reject a pending product submission.
+ */
 export const rejectProductAction = async (productId: ProductType["id"]) => {
-    console.log("Reject product", productId);
     try {
+        await verifyAdmin();
+
         await db
             .update(products)
-            .set({ status: "rejected" })
+            .set({
+                status: "rejected",
+            })
             .where(eq(products.id, productId));
 
         revalidatePath("/admin");
 
         return {
             success: true,
-            message: "Product rejected successfully",
+            message: "Product rejected successfully.",
         };
     } catch (error) {
         console.error(error);
+
         return {
             success: false,
-            message: "Failed to reject product",
+            message: "Failed to reject product.",
         };
     }
 };
 
+/**
+ * Permanently delete a product.
+ *
+ * Reserved for spam, malicious submissions,
+ * or content that violates platform guidelines.
+ */
 export const deleteProductAction = async (productId: number) => {
     try {
+        await verifyAdmin();
+
         await db.delete(products).where(eq(products.id, productId));
 
+        revalidatePath("/");
         revalidatePath("/admin");
-        revalidatePath("/"); // Update landing page if it was approved
 
-        return { success: true, message: "Product purged from registry." };
+        return {
+            success: true,
+            message: "Product deleted successfully.",
+        };
     } catch (error) {
         console.error(error);
-        return { success: false, message: "Failed to delete product." };
+
+        return {
+            success: false,
+            message: "Failed to delete product.",
+        };
     }
 };
-
-async function verifyAdmin() {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-
-    if (!session?.user) {
-        throw new Error("Unauthorized");
-    }
-
-    const isAdmin = ADMIN_EMAILS.includes(session.user.email ?? "");
-
-    if (!isAdmin) {
-        throw new Error("Forbidden");
-    }
-
-    return session;
-}
