@@ -5,6 +5,8 @@ import UserMenu from "./user-menu";
 import { Button } from "../ui/button";
 import { getCurrentSession } from "@/lib/auth-session";
 
+import { isAdmin } from "@/lib/admin/admin-config";
+
 export default async function Header() {
     const session = await getCurrentSession();
 
@@ -22,6 +24,7 @@ export default async function Header() {
                     <UserMenu
                         name={session.user.name}
                         image={session.user.image}
+                        isAdmin={isAdmin(session.user.email)}
                     />
                 ) : (
                     <div className="flex items-center gap-3">
