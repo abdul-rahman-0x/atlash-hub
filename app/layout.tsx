@@ -26,6 +26,9 @@ export const metadata: Metadata = {
         "Enterprise Digital Assets",
         "Architectural Integrity",
     ],
+    icons: {
+        icon: "/icon.svg",
+    },
 };
 
 export default function RootLayout({
