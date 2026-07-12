@@ -1,4 +1,10 @@
-# Atlash Hub
+<p align="center">
+  <a href="https://atlash-hub.vercel.app" target="_blank">
+    <img src="app/icon.svg" alt="Atlash Hub Logo" width="130" height="130" />
+  </a>
+</p>
+
+<h1 align="center">Atlash Hub</h1>
 
 <p align="center">
   <strong>Discover, validate, and showcase products that deserve to be seen.</strong>
