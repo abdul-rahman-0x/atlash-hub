@@ -1,10 +1,10 @@
-import { Activity } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import UserMenu from "./user-menu";
+import logoIcon from "@/app/icon.svg";
 
 import { Button } from "../ui/button";
 import { getCurrentSession } from "@/lib/auth-session";
-
 import { isAdmin } from "@/lib/admin/admin-config";
 
 export default async function Header() {
@@ -13,10 +13,18 @@ export default async function Header() {
     return (
         <div className="fixed top-4 left-0 right-0 z-50 px-4 md:px-8">
             <header className="max-w-6xl mx-auto h-16 bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_0px_#000] flex items-center justify-between px-6">
+                {/* Branding Block with dynamic Next.js Image Component */}
                 <Link
                     href="/"
-                    className="flex items-center gap-2 font-black text-xl shrink-0">
-                    <Activity className="size-6" />
+                    className="flex items-center gap-2.5 font-black text-xl shrink-0">
+                    <Image
+                        src={logoIcon}
+                        alt="ATLASH Logo"
+                        width={24}
+                        height={24}
+                        className="size-6 shrink-0"
+                        priority // Instructs Next.js to preload the logo above the fold
+                    />
                     ATLASH
                 </Link>
 
