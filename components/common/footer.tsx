@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { Activity, Github, Mail, Linkedin } from "lucide-react";
+import Image from "next/image";
+import { Github, Mail, Linkedin } from "lucide-react";
+import logoIcon from "@/app/icon.svg";
 
 const footerLinks = [
     {
@@ -29,7 +31,7 @@ const footerLinks = [
 
 export default function Footer() {
     return (
-        <footer className="bg-[#0C0C0C] text-white pt-24 pb-12 overflow-hidden relative">
+        <footer className="bg-[#0C0C0C] text-white pt-24 pb-12 overflow-hidden relative font-sans">
             <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none z-0">
                 <p
                     className="text-center text-[8rem] md:text-[16rem] lg:text-[20rem] font-extrabold leading-none tracking-tight"
@@ -50,7 +52,14 @@ export default function Footer() {
                         <Link
                             href="/"
                             className="flex items-center gap-3 group w-fit">
-                            <Activity className="size-8 text-[#B19CFF]" />
+                            {/* Uses dynamic Next.js Image component with clean invert filters on dark bg */}
+                            <Image
+                                src={logoIcon}
+                                alt="ATLASH Logo"
+                                width={32}
+                                height={32}
+                                className="size-8 shrink-0 invert"
+                            />
                             <span className="text-xl font-black tracking-tighter">
                                 ATLASH
                             </span>
@@ -103,13 +112,13 @@ export default function Footer() {
 
                 {/* bottom bar */}
                 <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-[12px] font-semibold text-white/20 tracking-widest">
+                    <p className="text-[12px] font-semibold text-white/20 tracking-widest font-mono">
                         © 2026 atlash hub inc. All rights reserved.
                     </p>
 
                     <div className="flex items-center gap-2 text-[12px] font-semibold text-white/20">
                         <span>Built by</span>
-                        <div className="px-2 py-0.5 bg-[#FFB38A] text-black rounded font-black">
+                        <div className="px-2 py-0.5 bg-[#FFB38A] text-black rounded font-black font-mono">
                             Abdul Rahman
                         </div>
                     </div>
