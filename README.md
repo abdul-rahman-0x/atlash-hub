@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://atlash-hub.vercel.app" target="_blank">
-    <img src="app/icon.svg" alt="Atlash Hub Logo" width="130" height="130" />
-  </a>
+  <img src="./public/icon.svg" alt="Atlash Hub Logo" width="150" height="130">
 </p>
 
 <h1 align="center">Atlash Hub</h1>
@@ -25,10 +23,9 @@
   <img src="https://img.shields.io/badge/Vercel-Deployed-black?style=flat&logo=vercel" />
 </p>
 
-
 ## Why Atlash Hub Exists
 
-Modern developers build thousands of valuable products every day, yet discovering reliable software remains difficult. Great tools often disappear inside fragmented GitHub repositories, Slack channels, Notion pages, or outdated documentation. 
+Modern developers build thousands of valuable products every day, yet discovering reliable software remains difficult. Great tools often disappear inside fragmented GitHub repositories, Slack channels, Notion pages, or outdated documentation.
 
 The challenge isn't building products—it's helping people **discover and trust them**.
 
@@ -36,23 +33,21 @@ Atlash Hub solves this by creating a curated ecosystem. Instead of a static dire
 
 > **Goal:** Build a platform where great products become easier to discover, easier to trust, and easier to scale.
 
-
 ## The Engineering Challenge: The Auth Pivot
 
 Building Atlash Hub was never primarily a UI challenge. The real test was designing a platform capable of supporting secure, role-based workflows and database consistency.
 
 One of the largest architectural decisions involved migrating the entire authentication system. Originally, the project used **Clerk**. As the application evolved, several limitations became apparent:
+
 - Increasing dependency on external abstractions.
 - Reduced control over session persistence.
 - Challenges supporting custom administrative "Admin" roles.
 
 To solve this, I migrated the entire stack to **Better Auth**. This required rebuilding the session management, OAuth providers, and database schemas from the ground up. The result is an authentication architecture with complete application ownership, improved maintainability, and significantly greater flexibility for future authorization and administrative workflows.
 
-
 ## Product Submission Workflow
 
 Every product passes through a server-side validation pipeline before becoming discoverable.
-
 
 ```mermaid
 flowchart LR
@@ -71,7 +66,6 @@ This workflow ensures:
 - future review systems
 - maintainable approval pipelines
 
-
 ## System Architecture
 
 The platform follows a **Server-First** architecture using Next.js Server Components and Server Actions to keep the client bundle minimal and logic secure.
@@ -86,7 +80,6 @@ flowchart LR
     Actions -.-> Future[Future Services]
 ```
 
-
 This architecture provides:
 
 - minimal client-side complexity
@@ -95,7 +88,6 @@ This architecture provides:
 - simplified authorization
 - scalable database access
 - easier long-term maintenance
-
 
 ## Authentication Architecture
 
@@ -128,7 +120,6 @@ This approach provides:
 - future role-based permissions
 - maintainable administrative access
 
-
 ## Security Architecture
 
 Security influenced nearly every architectural decision within Atlash Hub.
@@ -145,7 +136,6 @@ The platform currently implements:
 - environment isolation
 
 The goal was to minimize attack surfaces while avoiding unnecessary client-side trust assumptions.
-
 
 ## Scalability Strategy
 
@@ -164,7 +154,6 @@ Current architectural decisions enable:
 
 By maintaining clear boundaries between authentication, business logic, and persistence layers, future features can be introduced incrementally without requiring large-scale rewrites.
 
-
 ## Tech Stack & Tooling
 
 - **Framework:** Next.js 16 (App Router, Server Components)
@@ -176,7 +165,6 @@ By maintaining clear boundaries between authentication, business logic, and pers
 - **UI Components:** shadcn/ui + Radix UI
 - **Deployment:** Vercel
 - **Tooling:** PNPM, ESLint, TypeScript Strict Mode
-
 
 ## Project Structure
 
@@ -223,7 +211,6 @@ Before running Atlash Hub locally, ensure you have:
 - Node.js 22+
 - PNPM(`npm install -g pnpm`)
 - A Neon PostgreSQL instance
-
 
 ### 2. Installation
 
@@ -278,7 +265,6 @@ pnpm dev
 
 Open `http://localhost:3000` to see it in action.
 
-
 ## Security & Scalability
 
 Atlash Hub was designed around a server-first architecture where authentication, authorization, validation, and persistence remain clearly separated concerns.
@@ -300,13 +286,10 @@ The architecture also provides clear expansion paths for:
 - Redis caching layers
 - Real-time notification systems
 
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
-
 ## Author
 
 Built by **[Abdul Rahman](https://github.com/abdul-rahman-0x)**
-
