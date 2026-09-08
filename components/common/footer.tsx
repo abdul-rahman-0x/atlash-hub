@@ -32,7 +32,7 @@ const footerLinks = [
         links: [
             {
                 label: "email us",
-                href: "mailto:hello.abdul.in@gmail.com",
+                href: "mailto:abduls10x@gmail.com",
             },
         ],
     },
