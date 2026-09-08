@@ -1,8 +1,11 @@
 "use client";
 
-import { Check, CheckCircleIcon, X, XCircleIcon } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { approveProductAction, rejectProductAction } from "@/lib/admin/admin-actions";
+import {
+    approveProductAction,
+    rejectProductAction,
+} from "@/lib/admin/admin-actions";
 import { ProductType } from "@/types";
 
 export default function AdminActions({
@@ -28,8 +31,7 @@ export default function AdminActions({
                         size="sm"
                         variant="default"
                         className="hover:cursor-pointer"
-                        onClick={handleApprove}
-                    >
+                        onClick={handleApprove}>
                         <Check className="size-4" />
                         Approve
                     </Button>
@@ -37,8 +39,7 @@ export default function AdminActions({
                         size="sm"
                         variant="destructive"
                         className="hover:cursor-pointer"
-                        onClick={handleReject}
-                    >
+                        onClick={handleReject}>
                         <X className="size-4" />
                         Reject
                     </Button>
