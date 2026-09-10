@@ -16,32 +16,25 @@ export default function AdminActions({
     productId: ProductType["id"];
 }) {
     const handleApprove = async () => {
-        console.log("Approve");
         await approveProductAction(productId);
     };
+
     const handleReject = async () => {
-        console.log("Reject");
         await rejectProductAction(productId);
     };
+
     return (
-        <div className="space-y-2">
+        <div>
             {status === "pending" && (
-                <div className="flex gap-2">
-                    <Button
-                        size="sm"
-                        variant="default"
-                        className="hover:cursor-pointer"
-                        onClick={handleApprove}>
-                        <Check className="size-4" />
-                        Approve
+                <div className="flex items-center gap-2">
+                    <Button size="sm" variant="approve" onClick={handleApprove}>
+                        <Check className="size-3.5" />
+                        <span>Approve</span>
                     </Button>
-                    <Button
-                        size="sm"
-                        variant="destructive"
-                        className="hover:cursor-pointer"
-                        onClick={handleReject}>
-                        <X className="size-4" />
-                        Reject
+
+                    <Button size="sm" variant="reject" onClick={handleReject}>
+                        <X className="size-3.5" />
+                        <span>Reject</span>
                     </Button>
                 </div>
             )}
