@@ -1,5 +1,3 @@
-import { Database, Clock3, ShieldCheck, XCircle } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 
 export default function AdminStatsCard({
@@ -15,55 +13,63 @@ export default function AdminStatsCard({
 }) {
     const stats = [
         {
-            label: "Total Products",
+            label: "Total Pipeline",
             value: all,
-            icon: Database,
-            color: "bg-[#F9F7F0]",
+            statusBadge: "DATABASE",
+            bg: "bg-white",
+            badgeStyle: "bg-[#FAF9F6] text-[#0F201D]",
         },
         {
             label: "Pending Review",
             value: pending,
-            icon: Clock3,
-            color: "bg-[#FFF5E9]",
+            statusBadge: "QUEUE",
+            bg: "bg-[#FFF8EE] dark:bg-[#1C1813]",
+            badgeStyle: "bg-[#FFE08A] text-[#0F201D]",
         },
         {
-            label: "Approved",
+            label: "Approved Launches",
             value: approved,
-            icon: ShieldCheck,
-            color: "bg-[#EEFBE8]",
+            statusBadge: "LIVE",
+            bg: "bg-[#F2FBF0] dark:bg-[#121A11]",
+            badgeStyle: "bg-[#D2ECDB] text-[#0F201D]",
         },
         {
-            label: "Rejected",
+            label: "Rejected Submissions",
             value: rejected,
-            icon: XCircle,
-            color: "bg-[#FFF0F0]",
+            statusBadge: "CLOSED",
+            bg: "bg-[#FFF3F3] dark:bg-[#1C1212]",
+            badgeStyle: "bg-[#FAC9C2] text-[#0F201D]",
         },
     ];
 
     return (
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {stats.map(({ label, value, icon: Icon, color }) => (
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            {stats.map(({ label, value, statusBadge, bg, badgeStyle }) => (
                 <div
                     key={label}
                     className={cn(
-                        "rounded-[28px] border-2 border-black p-6",
-                        color,
+                        "rounded-none border-2 border-[#0F201D] p-4 shadow-[3px_3px_0px_0px_#0F201D] text-left transition-all",
+                        bg,
                     )}>
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#0F201D]/45">
-                                {label}
-                            </p>
+                    {/* Header: Stat Label + Mono Status Badge */}
+                    <div className="flex items-center justify-between gap-2">
+                        <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#0F201D]/60">
+                            {label}
+                        </p>
 
-                            <h3 className="mt-3 text-5xl font-black leading-none">
-                                {value}
-                            </h3>
-                        </div>
-
-                        <div className="flex size-12 items-center justify-center rounded-2xl border-2 border-black bg-white">
-                            <Icon className="size-5" />
-                        </div>
+                        <span
+                            className={cn(
+                                "rounded-none border border-[#0F201D] px-1.5 py-0.5 text-[9px] font-mono font-black uppercase tracking-wider shadow-[1px_1px_0px_0px_#0F201D]",
+                                badgeStyle,
+                            )}>
+                            {statusBadge}
+                        </span>
                     </div>
+
+                    {/* Numerical Metric */}
+                    <p className="mt-3 font-mono text-3xl sm:text-4xl font-black tracking-tight text-[#0F201D] leading-none">
+                        {value}
+                    </p>
                 </div>
             ))}
         </div>

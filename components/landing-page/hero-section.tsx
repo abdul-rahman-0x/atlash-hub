@@ -46,7 +46,7 @@ export default function HeroSection() {
                         </Button>
 
                         {/* Secondary CTA */}
-                        <Button asChild size="lg" variant="outline">
+                        <Button asChild size="lg" variant="outlineLight">
                             <Link href="/explore">Explore projects</Link>
                         </Button>
                     </div>
