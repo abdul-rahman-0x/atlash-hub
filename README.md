@@ -1,295 +1,231 @@
 <p align="center">
-  <img src="./public/icon.svg" alt="Atlash Hub Logo" width="150" height="130">
+  <img src="./public/icon.svg" alt="Atlash Hub Logo" width="130" height="110">
 </p>
 
 <h1 align="center">Atlash Hub</h1>
 
 <p align="center">
-  <strong>Discover, validate, and showcase products that deserve to be seen.</strong>
+  <strong>Curated product discovery and verification platform for developers, makers, and startups.</strong>
 </p>
 
 <p align="center">
-  Atlash Hub is a community-driven product discovery platform built for developers, makers, and startups. It provides a structured ecosystem where creators share their work and communities discover trusted products through a scalable moderation workflow.
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16_Stable-black?style=flat&logo=nextdotjs" />
+  <img src="https://img.shields.io/badge/Next.js-16_App_Router-black?style=flat&logo=nextdotjs" />
   <img src="https://img.shields.io/badge/React-19-%2361DAFB?style=flat&logo=react&logoColor=black" />
   <img src="https://img.shields.io/badge/TypeScript-Strict-%233178C6?style=flat&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/TailwindCSS-4-%2306B6D4?style=flat&logo=tailwindcss&logoColor=white" />
-  <img src="https://img.shields.io/badge/Better_Auth-Production-black?style=flat" />
-  <img src="https://img.shields.io/badge/Drizzle-ORM-%23C5F74F?style=flat" />
-  <img src="https://img.shields.io/badge/Neon-PostgreSQL-%234169E1?style=flat&logo=postgresql&logoColor=white" />
-  <img src="https://img.shields.io/badge/Vercel-Deployed-black?style=flat&logo=vercel" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-v4-%2306B6D4?style=flat&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/Better_Auth-In--Database_RBAC-black?style=flat" />
+  <img src="https://img.shields.io/badge/Drizzle_ORM-Type--Safe-%23C5F74F?style=flat" />
+  <img src="https://img.shields.io/badge/Neon-Serverless_PostgreSQL-%234169E1?style=flat&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Vercel-Production-black?style=flat&logo=vercel" />
 </p>
 
-## Why Atlash Hub Exists
+---
 
-Modern developers build thousands of valuable products every day, yet discovering reliable software remains difficult. Great tools often disappear inside fragmented GitHub repositories, Slack channels, Notion pages, or outdated documentation.
+## Overview
 
-The challenge isn't building products—it's helping people **discover and trust them**.
+Modern developers build thousands of valuable utilities, developer libraries, and micro-SaaS products every week. However, discovering trustworthy software remains fragmented: great projects often get buried in chat channels, temporary social feeds, uncurated lists, or inactive forums.
 
-Atlash Hub solves this by creating a curated ecosystem. Instead of a static directory, we provide a platform where builders showcase validated work and administrators maintain quality through a rigorous moderation pipeline.
+**Atlash Hub** is an open platform designed to organize and elevate high-quality developer software. Instead of an unmoderated link dump, it operates as a structured directory where builders showcase active projects, community members discover tested tools, and administrators verify product quality through a server-enforced review workflow.
 
-> **Goal:** Build a platform where great products become easier to discover, easier to trust, and easier to scale.
+### Who is Atlash Hub for?
 
-## The Engineering Challenge: The Auth Pivot
+* **Developers & Indie Founders:** Showcase software, document technical specifications, link code repositories, and gain qualified visibility among technical peers.
+* **Engineers & Technology Teams:** Discover reliable tools, inspect project credentials, and find tested alternatives without sorting through marketing spam.
+* **Community Contributors & Reviewers:** Evaluate new submissions, curate categories, and ensure platform listings remain active, accurate, and trustworthy.
 
-Building Atlash Hub was never primarily a UI challenge. The real test was designing a platform capable of supporting secure, role-based workflows and database consistency.
+### What can you do on the platform?
 
-One of the largest architectural decisions involved migrating the entire authentication system. Originally, the project used **Clerk**. As the application evolved, several limitations became apparent:
+1. **Explore & Search:** Filter through categorized, verified products with on-demand search and category sorting.
+2. **Submit Projects:** Authenticate via GitHub or Google to submit applications, provide live demonstration URLs, repository targets, and technical metadata.
+3. **Participate in Community Curation:** Upvote trusted products to surface the most valuable tools to the top of the discovery feed.
+4. **Administrative Moderation:** Administrators review incoming submissions, verify project metadata, and approve or reject submissions before public indexing.
 
-- Increasing dependency on external abstractions.
-- Reduced control over session persistence.
-- Challenges supporting custom administrative "Admin" roles.
+---
 
-To solve this, I migrated the entire stack to **Better Auth**. This required rebuilding the session management, OAuth providers, and database schemas from the ground up. The result is an authentication architecture with complete application ownership, improved maintainability, and significantly greater flexibility for future authorization and administrative workflows.
+## Core Platform Capabilities
 
-## Product Submission Workflow
+* **Curated Product Directory:** Public discovery portal rendered via Next.js Server Components for near-instant initial page loads and zero client-bundle bloat.
+* **Authenticated Project Submissions:** Multi-field submission wizard for creators with client-side feedback and server-side validation.
+* **Two-Tier Quality Control:** Staged submission pipeline where newly added tools enter a protected review queue, preventing unvetted listings from reaching the public directory.
+* **Composite Community Upvoting:** Real-time engagement mechanics backed by composite database keys to ensure transparent and non-duplicated votes.
+* **In-Database Session Authentication:** Native authentication powered by Better Auth, running directly within the relational database with strict role-based access control (RBAC).
+* **Instant Public Revalidation:** On-demand route cache purging via `revalidatePath` that instantly reflects moderator approvals across the public directory without background polling.
 
-Every product passes through a server-side validation pipeline before becoming discoverable.
+---
 
-```mermaid
-flowchart LR
-    A[Authenticated User] --> B[Submission]
-    B --> C[Server Validation]
-    C --> D[Database Storage]
-    D --> E[Admin Moderation]
-    E --> F[Public Discovery]
-```
+## Product Moderation & Publishing Lifecycle
 
-This workflow ensures:
-
-- authenticated ownership
-- validated submissions
-- scalable moderation
-- future review systems
-- maintainable approval pipelines
-
-## System Architecture
-
-The platform follows a **Server-First** architecture using Next.js Server Components and Server Actions to keep the client bundle minimal and logic secure.
-
-```mermaid
-flowchart LR
-    User[User Browser] --> UI[Next.js 16 App Router]
-    UI --> Auth[Better Auth]
-    UI --> Actions[Server Actions]
-    Actions --> ORM[Drizzle ORM]
-    ORM --> DB[(Neon PostgreSQL)]
-    Actions -.-> Future[Future Services]
-```
-
-This architecture provides:
-
-- minimal client-side complexity
-- centralized business logic
-- end-to-end type safety
-- simplified authorization
-- scalable database access
-- easier long-term maintenance
-
-## Authentication Architecture
-
-Authentication was one of the most important engineering concerns during development.
-
-The application now owns its entire authentication flow through Better Auth, providing significantly greater flexibility for future administrative and authorization features.
+Every project submission follows a deterministic state machine to maintain ecosystem quality before indexing:
 
 ```mermaid
 sequenceDiagram
-    participant U as User
-    participant A as Atlash
-    participant B as Better Auth
-    participant G as Google/GitHub
-    participant D as Database
+    autonumber
+    actor Creator as Creator (User)
+    participant App as Next.js Server Action
+    participant Auth as Better Auth Guard
+    participant DB as Neon PostgreSQL (Drizzle)
+    actor Admin as Moderator (Admin)
 
-    U->>A: Sign In
-    A->>B: Request Authentication
-    B->>G: OAuth Flow
-    G-->>B: User Profile
-    B->>D: Create Session
-    D-->>A: Authenticated Session
-    A-->>U: Redirect
+    Creator->>App: Submit project payload (Title, URL, Specs)
+    App->>App: Validate schema boundaries via Zod
+    App->>Auth: Verify authenticated session
+    Auth-->>App: Session valid (User ID)
+    App->>DB: Write product record (Status: "PENDING")
+    DB-->>Creator: Confirmation toast (Under Review)
+
+    Note over Admin,DB: Administrative Verification Flow
+    Admin->>App: Open moderation dashboard
+    App->>Auth: Enforce admin role guard (role === "admin")
+    Auth-->>App: Access granted
+    App->>DB: Fetch pending review queue
+    Admin->>App: Dispatch Approval Action
+    App->>DB: Update product (Status: "APPROVED")
+    App->>App: Trigger revalidatePath('/explore')
+    App-->>Admin: Feed refreshed with verified item
 ```
 
-This approach provides:
+---
 
-- server-side session handling
-- secure OAuth workflows
-- centralized authorization
-- future role-based permissions
-- maintainable administrative access
+## Database Architecture & Data Modeling
 
-## Security Architecture
+The relational schema is configured with strict foreign-key cascades, automated timestamps, and explicit indexation across lookup columns:
 
-Security influenced nearly every architectural decision within Atlash Hub.
+```bash
+db/
+├── schema.ts           # Business schemas (Products, Categories, Reviews, Votes)
+├── auth-schema.ts      # Identity schemas (Users, Sessions, Accounts, Verifications)
+└── seeds.ts            # Local development seed records
+```
 
-The platform currently implements:
+### Relational Entity Graph
 
-- server-side session validation
-- OAuth authentication
-- protected routes
-- server actions
-- schema validation
-- database constraints
-- centralized authorization
-- environment isolation
+* **`users`**: Central identity records storing user profiles and role attributes (`user`, `moderator`, `admin`).
+* **`sessions`**: Server-managed authentication tokens with cryptographically generated expiry timestamps.
+* **`products`**: Product specifications, repository links, media assets, owner foreign keys, and moderation states (`pending`, `approved`, `rejected`).
+* **`reviews` / `votes`**: Community interaction records constrained by composite foreign keys to guarantee single-vote attribution per user.
 
-The goal was to minimize attack surfaces while avoiding unnecessary client-side trust assumptions.
+---
 
-## Scalability Strategy
+## Security, Data Integrity & Scalability
 
-Atlash Hub was intentionally designed to support future growth.
+1. **Zero Client Trust:** All mutations occur through Next.js Server Actions backed by strict Zod schema validation. Incomplete or malformed payloads are rejected before touching database transactions.
+2. **Deterministic Role Gates:** Administrative routes (`/admin/*`) enforce a multi-layered barrier: path-level middleware protection combined with server-side database verification of the user's role on every action.
+3. **Database Connection Pooling:** Neon serverless connection pooling prevents connection starvation during high-concurrency read and write cycles.
+4. **On-Demand Cache Purging:** The public directory relies on static rendering with Next.js `revalidatePath`. Database reads remain minimal and fast, purging cached pages only when a product state transitions to approved.
 
-Current architectural decisions enable:
+---
 
-- role-based permissions
-- moderation workflows
-- analytics dashboards
-- recommendation systems
-- search infrastructure
-- real-time notifications
-- event-driven processing
-- API integrations
+## Tech Stack
 
-By maintaining clear boundaries between authentication, business logic, and persistence layers, future features can be introduced incrementally without requiring large-scale rewrites.
+* **Framework:** Next.js 16 (React 19, Server Components, Server Actions)
+* **Language:** TypeScript (Strict Mode)
+* **Authentication:** Better Auth (In-Database Sessions, Google & GitHub OAuth)
+* **Database:** Neon PostgreSQL (Serverless, Pooled Architecture)
+* **ORM:** Drizzle ORM (Type-Safe Query Layer)
+* **Validation:** Zod (Runtime & Type-Level Schema Validation)
+* **Styling:** Tailwind CSS v4 + Radix UI Primitives
+* **Deployment:** Vercel
 
-## Tech Stack & Tooling
-
-- **Framework:** Next.js 16 (App Router, Server Components)
-- **Authentication:** Better Auth (Google & GitHub OAuth)
-- **Database:** Neon PostgreSQL (Serverless)
-- **ORM:** Drizzle ORM
-- **Validation:** Zod (Schema-first integrity)
-- **Styling:** Tailwind CSS v4
-- **UI Components:** shadcn/ui + Radix UI
-- **Deployment:** Vercel
-- **Tooling:** PNPM, ESLint, TypeScript Strict Mode
+---
 
 ## Project Structure
 
 ```bash
 atlash-hub/
-
-├── app/                    # Next.js App Router pages and route handlers
-│   ├── admin/              # Admin moderation dashboard
-│   ├── api/                # API routes and server endpoints
-│   ├── explore/            # Product discovery experience
-│   ├── products/           # Product detail pages
-│   └── submit/             # Product submission workflow
-│
-├── components/             # Reusable UI and feature components
-│   ├── admin/              # Admin dashboard components
-│   ├── forms/              # Form components and validation UI
-│   ├── landing-page/       # Homepage sections
-│   ├── products/           # Product-related components
-│   └── ui/                 # Shared design system components
-│
-├── db/                     # Database layer
-│   ├── schema.ts           # Drizzle database schema
-│   ├── auth-schema.ts      # Authentication schema
-│   └── seeds.ts            # Seed data
-│
-├── lib/                    # Business logic and server utilities
-│   ├── admin/              # Admin actions and utilities
-│   ├── products/           # Product services and actions
-│   ├── auth.ts             # Better Auth configuration
-│   ├── auth-client.ts      # Client authentication helpers
-│   └── auth-session.ts     # Session management
-│
-├── public/                 # Static assets
-├── types/                  # Shared TypeScript definitions
-└── drizzle/                # Database migrations
+├── app/
+│   ├── (auth)/             # Login, signup, and OAuth callbacks
+│   ├── (public)/           # Explore directory, search, and product detail views
+│   ├── admin/              # Protected moderator review queue and platform metrics
+│   ├── api/auth/[...all]/  # Better Auth wildcard HTTP route handler
+│   └── submit/             # Authenticated product submission wizard
+├── components/
+│   ├── admin/              # Moderation tables and approval action triggers
+│   ├── forms/              # Zod-backed form controllers and validation states
+│   ├── products/           # Product cards, upvote controls, and spec presenters
+│   └── ui/                 # Design system tokens (shadcn/ui primitives)
+├── db/                     # Drizzle schemas, connection pools, and migration scripts
+├── lib/
+│   ├── actions/            # Type-safe Server Actions for mutations
+│   ├── auth.ts             # Better Auth server configuration and plugin hooks
+│   └── auth-client.ts      # Client session listener helpers
+└── types/                  # Shared domain contracts and DTO definitions
 ```
+
+---
 
 ## Getting Started
 
 ### 1. Prerequisites
 
-Before running Atlash Hub locally, ensure you have:
+Ensure you have the following installed locally:
 
-- Node.js 22+
-- PNPM(`npm install -g pnpm`)
-- A Neon PostgreSQL instance
+* Node.js: `22.0.0` or higher
+* Package Manager: `pnpm` (`npm install -g pnpm`)
+* Database: A PostgreSQL instance (such as a free tier on [Neon](https://neon.tech))
 
-### 2. Installation
+### 2. Repository Setup
 
 ```bash
-git clone https://github.com/your-username/atlash-hub.git
+git clone https://github.com/abdul-rahman-0x/atlash-hub.git
 cd atlash-hub
-```
-
-### 3. Install dependencies
-
-```bash
 pnpm install
 ```
 
-### 4. Environment Setup
+### 3. Environment Configuration
 
-Copy the example file and fill in your credentials:
+Create a `.env.local` file in the project root:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Required Variables:
+Populate the required environment variables:
 
 ```env
-# PostgreSQL connection string from Neon
-DATABASE_URL="postgresql://username:password@host/neondb?sslmode=require"
+# PostgreSQL connection string (Neon pooled instance)
+DATABASE_URL="postgresql://username:password@ep-sample-pooler.region.neon.tech/atlash?sslmode=require"
 
-# Better Auth (Generate secret via: openssl rand -base64 32)
-BETTER_AUTH_SECRET="your_generated_secret"
+# Better Auth Secret (Generate via: openssl rand -base64 32)
+BETTER_AUTH_SECRET="your_32_character_base64_secret"
 BETTER_AUTH_URL="http://localhost:3000"
 
-# Google & GitHub OAuth credentials
-GOOGLE_CLIENT_ID="your_id"
-GOOGLE_CLIENT_SECRET="your_secret"
-GITHUB_CLIENT_ID="your_id"
-GITHUB_CLIENT_SECRET="your_secret"
+# OAuth Providers
+GOOGLE_CLIENT_ID="your_google_oauth_client_id"
+GOOGLE_CLIENT_SECRET="your_google_oauth_client_secret"
 
-# Local URL for development
+GITHUB_CLIENT_ID="your_github_oauth_client_id"
+GITHUB_CLIENT_SECRET="your_github_oauth_client_secret"
+
+# Public App URL
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
-### 5. Database Sync & Launch
+### 4. Database Initialization
 
 ```bash
-# Push schema to Neon
+# Push schemas directly to Neon PostgreSQL
 pnpm drizzle-kit push
 
-# Start the dev server
+# (Optional) Seed the database with sample products and categories
+pnpm db:seed
+```
+
+### 5. Launch Development Server
+
+```bash
 pnpm dev
 ```
 
-Open `http://localhost:3000` to see it in action.
+Open [http://localhost:3000](http://localhost:3000) to access Atlash Hub.
 
-## Security & Scalability
-
-Atlash Hub was designed around a server-first architecture where authentication, authorization, validation, and persistence remain clearly separated concerns.
-
-Current implementation includes:
-
-- Server-side session validation
-- Route protection via middleware
-- Zod-based schema validation
-- Centralized authorization logic
-- Database-level integrity constraints
-
-The architecture also provides clear expansion paths for:
-
-- Background job processing
-- Event-driven workflows
-- Search indexing
-- Analytics systems
-- Redis caching layers
-- Real-time notification systems
+---
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+Distributed under the [MIT License](LICENSE).
+
+---
 
 ## Author
 
-Built by **[Abdul Rahman](https://github.com/abdul-rahman-0x)**
+Developed by **[Abdul Rahman](https://github.com/abdul-rahman-0x)**
