@@ -15,7 +15,7 @@
  * These email addresses are granted full access to the internal
  * moderation dashboard and privileged server actions.
  */
-export const ADMIN_EMAILS = ["hello.abdul.in@gmail.com"] as const;
+export const ADMIN_EMAILS = ["abduls10x@gmail.com"] as const;
 
 /**
  * Returns true when the provided email belongs to an administrator.
