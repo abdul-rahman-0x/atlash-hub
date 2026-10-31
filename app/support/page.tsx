@@ -1,7 +1,8 @@
-// app/support/page.tsx
 import type { Metadata } from "next";
-import { Mail } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
+
 import BackHome from "@/components/common/back-home";
+import SectionHeader from "@/components/common/section-header";
 
 export const metadata: Metadata = {
     title: "Help & Support",
@@ -19,106 +20,121 @@ export const metadata: Metadata = {
     ],
 };
 
+const SUPPORT_EMAIL = "abduls10x@gmail.com";
+
 export default function SupportPage() {
     return (
-        <main className="pt-20 pb-20 bg-[#F3F0FA] dark:bg-[#09080D] min-h-screen font-sans">
-            <div className="mx-auto max-w-4xl px-6 md:px-8">
-                {/* Back navigation */}
-                <div className="mb-10">
-                    <BackHome />
-                </div>
-
-                {/* Main Content Layout */}
-                <article className="space-y-12">
-                    {/* Header */}
-                    <header>
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-950 dark:text-white mb-4">
-                            Help & Support
-                        </h1>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                            Atlash Hub has got you covered.
-                        </p>
-                    </header>
-
-                    {/* Introductory Left-Bordered Callout Box */}
-                    <div className="border-l-4 border-[#B19CFF] bg-white p-6 rounded-r-2xl dark:bg-[#111015]">
-                        <p className="text-base text-zinc-700 dark:text-zinc-300 leading-relaxed font-medium">
-                            Find answers, get support, and connect directly with
-                            me. Atlash Hub is designed to help you launch,
-                            showcase, and discover digital products.
-                        </p>
+        <main className="pt-20 pb-20">
+            <div className="wrapper">
+                <div className="mx-auto max-w-3xl">
+                    {/* Back navigation */}
+                    <div className="mb-8">
+                        <BackHome />
                     </div>
 
-                    {/* Section: FAQ 1 */}
-                    <section className="space-y-3">
-                        <h2 className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
-                            How do products get featured?
-                        </h2>
-                        <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                            Products with strong community engagement, verified
-                            launches, and high-quality metadata are highlighted
-                            in our trending and featured sections following
-                            administrative review. The platform moderation
-                            pipeline ensures that authentic products receive the
-                            discoverability they deserve.
-                        </p>
-                    </section>
+                    {/* Support Header */}
+                    <SectionHeader
+                        title={
+                            <>
+                                Help &{" "}
+                                <span className="text-[#F5B726]">support.</span>
+                            </>
+                        }
+                        description="Find answers to common questions, get assistance with your submissions, or connect directly regarding Atlash Hub."
+                        hideButton={true}
+                    />
 
-                    {/* Section: FAQ 2 */}
-                    <section className="space-y-3">
-                        <h2 className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
-                            Can I update my submission?
-                        </h2>
-                        <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                            Yes. If you need to edit your project&apos;s title,
-                            description, or links, send an email with your
-                            project name and the changes you would like to make.
-                            I will review and update the database listing for
-                            you.
-                        </p>
-                    </section>
+                    {/* Content Container */}
+                    <article className="mt-12 space-y-10 text-[#0f201d]">
+                        {/* Introductory Callout Box */}
+                        <div className="rounded-r-xl border-l-4 border-[#F5B726] bg-[#0f201d]/[0.03] p-6">
+                            <p className="text-sm font-medium leading-relaxed text-[#0f201d]/80 md:text-base">
+                                Atlash Hub is built to give creators an honest
+                                stage to launch, showcase, and gain traction.
+                                If you need help with listings, moderation, or
+                                account access, direct support is available
+                                below.
+                            </p>
+                        </div>
 
-                    {/* Section: FAQ 3 */}
-                    <section className="space-y-3">
-                        <h2 className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
-                            Is Atlash Hub free?
-                        </h2>
-                        <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                            Yes. Atlash Hub is 100% free to use. It was built by
-                            a solo creator (Abdul Rahman) to help you showcase
-                            your work, gain traction, and connect with other
-                            builders.
-                        </p>
-                    </section>
+                        {/* Section: FAQ 1 */}
+                        <section className="space-y-3">
+                            <h2 className="text-xl font-bold tracking-tight md:text-2xl">
+                                How do products get featured?
+                            </h2>
+                            <p className="text-sm font-medium leading-relaxed text-[#0f201d]/70 md:text-base">
+                                Products with strong community engagement,
+                                verified launches, and high-quality metadata are
+                                highlighted in our trending and featured
+                                sections following administrative review. Our
+                                moderation pipeline ensures authentic tools
+                                receive the visibility they deserve.
+                            </p>
+                        </section>
 
-                    {/* Section: Contact Us (Singular elegant card) */}
-                    <section className="space-y-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
-                        <h2 className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
-                            Contact me directly
-                        </h2>
-                        <p className="text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                            Have a question that isn&apos;t covered here? Or
-                            experiencing an authentication issue with Better
-                            Auth? Reach out directly via email.
-                        </p>
+                        {/* Section: FAQ 2 */}
+                        <section className="space-y-3">
+                            <h2 className="text-xl font-bold tracking-tight md:text-2xl">
+                                Can I update my submission?
+                            </h2>
+                            <p className="text-sm font-medium leading-relaxed text-[#0f201d]/70 md:text-base">
+                                Yes. If you need to edit your project&apos;s
+                                title, description, tags, or links, reach out
+                                directly via email with your project name and
+                                requested edits. The listing will be reviewed
+                                and updated promptly in the database.
+                            </p>
+                        </section>
 
-                        <a
-                            href="mailto:support@atlash.hub"
-                            className="inline-flex items-center gap-4 p-4 border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-white dark:bg-[#111015] hover:border-[#B19CFF] transition-colors group">
-                            <div className="size-10 rounded-xl bg-[#FFB38A] flex items-center justify-center text-[#0F201D] shrink-0">
-                                <Mail className="size-5" />
-                            </div>
-                            <div>
-                                <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
-                                    Email Support
+                        {/* Section: FAQ 3 */}
+                        <section className="space-y-3">
+                            <h2 className="text-xl font-bold tracking-tight md:text-2xl">
+                                Is Atlash Hub free?
+                            </h2>
+                            <p className="text-sm font-medium leading-relaxed text-[#0f201d]/70 md:text-base">
+                                Yes. Atlash Hub is 100% free to use. It was
+                                built by a solo creator (Abdul Rahman) to help
+                                makers showcase their products, get verified,
+                                and connect with a global community of builders.
+                            </p>
+                        </section>
+
+                        {/* Section: Direct Contact */}
+                        <section className="space-y-4 border-t border-[#0f201d]/10 pt-8">
+                            <div className="space-y-2">
+                                <h2 className="text-xl font-bold tracking-tight md:text-2xl">
+                                    Contact directly
+                                </h2>
+                                <p className="text-sm font-medium leading-relaxed text-[#0f201d]/70 md:text-base">
+                                    Have a technical question, moderation
+                                    inquiry, or an issue with your account? Send
+                                    an email and you will receive a response
+                                    directly.
                                 </p>
-                                <p className="font-bold text-zinc-950 dark:text-white group-hover:text-[#6E42F4] dark:group-hover:text-[#B19CFF] transition-colors">
-                                    support@atlash.hub
-                                </p>
                             </div>
-                        </a>
-                    </section>
-                </article>
+
+                            <a
+                                href={`mailto:${SUPPORT_EMAIL}`}
+                                className="group inline-flex items-center justify-between gap-6 rounded-xl border border-[#0f201d]/10 bg-[#0f201d]/[0.02] p-4 transition-all duration-150 hover:border-[#0f201d]/25 hover:bg-[#0f201d]/[0.04]">
+                                <div className="flex items-center gap-3.5">
+                                    <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#F5B726]/15 text-[#0f201d]">
+                                        <Mail className="size-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[11px] font-bold uppercase tracking-wider text-[#0f201d]/50">
+                                            Creator Support
+                                        </p>
+                                        <p className="font-semibold text-[#0f201d] transition-colors group-hover:text-[#E97B77]">
+                                            {SUPPORT_EMAIL}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <ArrowUpRight className="size-4 text-[#0f201d]/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#0f201d]" />
+                            </a>
+                        </section>
+                    </article>
+                </div>
             </div>
         </main>
     );
