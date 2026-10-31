@@ -31,7 +31,7 @@ const footerLinks: FooterSection[] = [
         ],
     },
     {
-        title: "get in touch",
+        title: "contact",
         links: [
             {
                 label: "email us",
