@@ -3,7 +3,17 @@ import Image from "next/image";
 
 import logoIcon from "@/app/icon.svg";
 
-const footerLinks = [
+interface FooterLinkItem {
+    label: string;
+    href: string;
+}
+
+interface FooterSection {
+    title: string;
+    links: FooterLinkItem[];
+}
+
+const footerLinks: FooterSection[] = [
     {
         title: "explore",
         links: [
@@ -21,13 +31,6 @@ const footerLinks = [
         ],
     },
     {
-        title: "legal",
-        links: [
-            { label: "privacy", href: "/privacy" },
-            { label: "terms", href: "/terms" },
-        ],
-    },
-    {
         title: "get in touch",
         links: [
             {
@@ -42,9 +45,10 @@ export default function Footer() {
     return (
         <footer className="overflow-hidden bg-background pt-24 pb-12 font-sans text-[#0f201d]">
             <div className="wrapper relative z-10 mx-auto max-w-6xl px-6">
-                <div className="mb-20 grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 lg:grid-cols-6">
+                {/* Top Section: Brand on left, 3 Nav Columns on right */}
+                <div className="mb-20 flex flex-col justify-between gap-12 lg:flex-row lg:items-start">
                     {/* Brand Section */}
-                    <div className="col-span-2 space-y-6">
+                    <div className="max-w-xs space-y-6">
                         <Link
                             href="/"
                             aria-label="Atlash home"
@@ -62,35 +66,37 @@ export default function Footer() {
                             </span>
                         </Link>
 
-                        <p className="max-w-xs text-sm font-medium leading-relaxed text-[#0f201d]/60">
+                        <p className="text-sm font-medium leading-relaxed text-[#0f201d]/60">
                             A place to share what you build and find cool new
                             things made by builders like you.
                         </p>
                     </div>
 
                     {/* Navigation Columns */}
-                    {footerLinks.map((section) => (
-                        <div key={section.title} className="space-y-5">
-                            <h4 className="text-[12px] font-bold uppercase tracking-wider text-[#525252]">
-                                {section.title}
-                            </h4>
+                    <div className="grid grid-cols-2 gap-x-12 gap-y-10 sm:grid-cols-3 sm:gap-x-16 lg:gap-x-20">
+                        {footerLinks.map((section) => (
+                            <div key={section.title} className="space-y-5">
+                                <h4 className="text-[12px] font-bold uppercase tracking-wider text-[#525252]">
+                                    {section.title}
+                                </h4>
 
-                            <ul className="space-y-3">
-                                {section.links.map((link) => (
-                                    <li key={link.label}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-[13px] font-medium capitalize text-[#0f201d] transition-colors duration-150 hover:text-[#E97B77] hover:underline">
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                                <ul className="space-y-3">
+                                    {section.links.map((link) => (
+                                        <li key={link.label}>
+                                            <Link
+                                                href={link.href}
+                                                className="text-[13px] font-medium capitalize text-[#0f201d] transition-colors duration-150 hover:text-[#E97B77] hover:underline">
+                                                {link.label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Bottom Bar */}
+                {/* Bottom Bar: Copyright on left, Terms & Privacy on right */}
                 <div className="flex flex-col items-center justify-between gap-4 border-t border-foreground/10 pt-8 sm:flex-row">
                     <p className="text-xs font-medium tracking-wider text-[#737373]">
                         © 2026{" "}
@@ -99,10 +105,22 @@ export default function Footer() {
                         </span>
                     </p>
 
-                    <div className="flex items-center text-xs font-medium text-[#737373]">
-                        <span className="font-semibold text-[#737373]">
-                            Build by Abdul Rahman.
+                    <div className="flex items-center gap-3 text-xs font-medium text-[#737373]">
+                        <Link
+                            href="/terms"
+                            className="transition-colors duration-150 hover:text-[#0f201d] hover:underline">
+                            Terms of service
+                        </Link>
+                        <span
+                            className="select-none text-[#737373]/40"
+                            aria-hidden="true">
+                            |
                         </span>
+                        <Link
+                            href="/privacy"
+                            className="transition-colors duration-150 hover:text-[#0f201d] hover:underline">
+                            Privacy policy
+                        </Link>
                     </div>
                 </div>
             </div>
