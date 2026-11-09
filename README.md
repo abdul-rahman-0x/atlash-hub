@@ -1,154 +1,171 @@
-<p align="center">
-  <img src="./public/icon.svg" alt="Atlash Hub Logo" width="130" height="110">
-</p>
+<div align="center">
+  <img src="public/icon.svg" alt="Atlash Hub Logo" width="80" height="80" />
 
-<h1 align="center">Atlash Hub</h1>
+  <h1>ATLASH HUB</h1>
 
-<p align="center">
-  <strong>Curated product discovery and verification platform for developers, makers, and startups.</strong>
-</p>
+  <p><strong>A curated discovery and verification platform for developer tools, libraries, and micro-SaaS products.</strong></p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16_App_Router-black?style=flat&logo=nextdotjs" />
-  <img src="https://img.shields.io/badge/React-19-%2361DAFB?style=flat&logo=react&logoColor=black" />
-  <img src="https://img.shields.io/badge/TypeScript-Strict-%233178C6?style=flat&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-v4-%2306B6D4?style=flat&logo=tailwindcss&logoColor=white" />
-  <img src="https://img.shields.io/badge/Better_Auth-In--Database_RBAC-black?style=flat" />
-  <img src="https://img.shields.io/badge/Drizzle_ORM-Type--Safe-%23C5F74F?style=flat" />
-  <img src="https://img.shields.io/badge/Neon-Serverless_PostgreSQL-%234169E1?style=flat&logo=postgresql&logoColor=white" />
-  <img src="https://img.shields.io/badge/Vercel-Production-black?style=flat&logo=vercel" />
-</p>
+  <p>
+    <a href="https://atlash-hub.vercel.app"><strong>Explore Live Platform →</strong></a>
+  </p>
+
+  <p>
+    <img src="https://img.shields.io/badge/Next.js-16_App_Router-%23000000?style=flat&logo=nextdotjs&logoColor=white" alt="Next.js 16" />
+    <img src="https://img.shields.io/badge/React-19-%2361DAFB?style=flat&logo=react&logoColor=black" alt="React 19" />
+    <img src="https://img.shields.io/badge/TypeScript-Strict-%233178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-v4-%2306B6D4?style=flat&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
+    <img src="https://img.shields.io/badge/Better_Auth-In--Database_RBAC-%23000000?style=flat" alt="Better Auth" />
+    <img src="https://img.shields.io/badge/Drizzle_ORM-Type--Safe-%23C5F74F?style=flat&logo=drizzle&logoColor=black" alt="Drizzle ORM" />
+    <img src="https://img.shields.io/badge/Neon-Serverless_Postgres-%2300E699?style=flat&logo=postgresql&logoColor=black" alt="Neon Postgres" />
+  </p>
+</div>
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+  - [Target Audience](#target-audience)
+  - [Core User Flow](#core-user-flow)
+- [Core Platform Capabilities](#core-platform-capabilities)
+- [Product Moderation Lifecycle](#product-moderation-lifecycle)
+- [Database Architecture & Entity Graph](#database-architecture--entity-graph)
+- [Security & Performance Design](#security--performance-design)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#1-prerequisites)
+  - [Installation](#2-repository-setup)
+  - [Environment Configuration](#3-environment-configuration)
+  - [Database Initialization](#4-database-initialization)
+  - [Development Server](#5-launch-development-server)
+- [Roadmap](#roadmap)
+- [License](#license)
+- [Author](#author)
 
 ---
 
 ## Overview
 
-Modern developers build thousands of valuable utilities, developer libraries, and micro-SaaS products every week. However, discovering trustworthy software remains fragmented: great projects often get buried in chat channels, temporary social feeds, uncurated lists, or inactive forums.
+Finding reliable developer software is frustrating. Great open-source utilities and indie tools frequently get lost in social feeds, unindexed forums, or uncurated link lists stuffed with marketing noise.
 
-**Atlash Hub** is an open platform designed to organize and elevate high-quality developer software. Instead of an unmoderated link dump, it operates as a structured directory where builders showcase active projects, community members discover tested tools, and administrators verify product quality through a server-enforced review workflow.
+**Atlash Hub** provides a structured, community-indexed alternative. It operates as a verified product directory where creators showcase active tools and community members surface vetted software through authenticated reviews and a server-enforced moderation pipeline.
 
-### Who is Atlash Hub for?
+### Target Audience
 
-* **Developers & Indie Founders:** Showcase software, document technical specifications, link code repositories, and gain qualified visibility among technical peers.
-* **Engineers & Technology Teams:** Discover reliable tools, inspect project credentials, and find tested alternatives without sorting through marketing spam.
-* **Community Contributors & Reviewers:** Evaluate new submissions, curate categories, and ensure platform listings remain active, accurate, and trustworthy.
+* **Developers & Indie Builders**: Showcase software with live links, source repositories, and technical specs to reach an engineering audience.
+* **Engineering Teams**: Discover tested tools, inspect project health, and compare alternatives without promotional bloat.
+* **Reviewers & Curators**: Review submissions, moderate listings, and prevent stale or spam submissions from reaching the public feed.
 
-### What can you do on the platform?
+### Core User Flow
 
-1. **Explore & Search:** Filter through categorized, verified products with on-demand search and category sorting.
-2. **Submit Projects:** Authenticate via GitHub or Google to submit applications, provide live demonstration URLs, repository targets, and technical metadata.
-3. **Participate in Community Curation:** Upvote trusted products to surface the most valuable tools to the top of the discovery feed.
-4. **Administrative Moderation:** Administrators review incoming submissions, verify project metadata, and approve or reject submissions before public indexing.
+1. **Search & Filter**: Browse products by category, tech stack, and verified community ratings with instant client-side filtering.
+2. **Submit Projects**: Authenticate via GitHub or Google to submit an application with technical specs and repository targets.
+3. **Community Upvoting**: Support quality tools with single-vote composite constraints that prevent vote duplication.
+4. **Moderator Verification**: Administrators review submissions in a protected queue, validating repository health before approving public indexing.
 
 ---
 
 ## Core Platform Capabilities
 
-* **Curated Product Directory:** Public discovery portal rendered via Next.js Server Components for near-instant initial page loads and zero client-bundle bloat.
-* **Authenticated Project Submissions:** Multi-field submission wizard for creators with client-side feedback and server-side validation.
-* **Two-Tier Quality Control:** Staged submission pipeline where newly added tools enter a protected review queue, preventing unvetted listings from reaching the public directory.
-* **Composite Community Upvoting:** Real-time engagement mechanics backed by composite database keys to ensure transparent and non-duplicated votes.
-* **In-Database Session Authentication:** Native authentication powered by Better Auth, running directly within the relational database with strict role-based access control (RBAC).
-* **Instant Public Revalidation:** On-demand route cache purging via `revalidatePath` that instantly reflects moderator approvals across the public directory without background polling.
+* **Server-Rendered Directory**: Public discovery pages are generated via Next.js Server Components for instant initial paint and zero unnecessary client JavaScript.
+* **Two-Tier Quality Control**: New tools enter a protected `PENDING` queue, preventing unvetted entries from appearing on the live discovery feed.
+* **Native In-Database Authentication**: Powered by **Better Auth**, storing sessions and user records directly in PostgreSQL with strict Role-Based Access Control (RBAC).
+* **Instant Cache Revalidation**: On-demand route cache purging via `revalidatePath('/explore')` reflects moderator approvals immediately across public pages.
+* **Composite Key Upvoting**: Relational constraints prevent bot or duplicate vote loops at the database schema level.
 
 ---
 
-## Product Moderation & Publishing Lifecycle
+## Product Moderation Lifecycle
 
-Every project submission follows a deterministic state machine to maintain ecosystem quality before indexing:
+Every submission follows a deterministic pipeline from creation through verification and cache purging:
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Creator as Creator (User)
-    participant App as Next.js Server Action
-    participant Auth as Better Auth Guard
-    participant DB as Neon PostgreSQL (Drizzle)
-    actor Admin as Moderator (Admin)
+    actor Creator as Creator
+    participant App as Server Action
+    participant DB as Neon PostgreSQL
+    actor Admin as Moderator
 
-    Creator->>App: Submit project payload (Title, URL, Specs)
-    App->>App: Validate schema boundaries via Zod
-    App->>Auth: Verify authenticated session
-    Auth-->>App: Session valid (User ID)
-    App->>DB: Write product record (Status: "PENDING")
-    DB-->>Creator: Confirmation toast (Under Review)
+    Creator->>App: Submit product (Metadata, Repo, Specs)
+    App->>DB: Insert record (Status: "PENDING")
+    DB-->>Creator: Submission queued for review
 
-    Note over Admin,DB: Administrative Verification Flow
-    Admin->>App: Open moderation dashboard
-    App->>Auth: Enforce admin role guard (role === "admin")
-    Auth-->>App: Access granted
-    App->>DB: Fetch pending review queue
-    Admin->>App: Dispatch Approval Action
-    App->>DB: Update product (Status: "APPROVED")
+    Admin->>App: Access moderation panel (/admin)
+    App->>DB: Query pending submissions
+    Admin->>App: Dispatch approve action
+    App->>DB: Update record (Status: "APPROVED")
     App->>App: Trigger revalidatePath('/explore')
-    App-->>Admin: Feed refreshed with verified item
+    App-->>Admin: Feed cache purged & item live
 ```
 
 ---
 
-## Database Architecture & Data Modeling
+## Database Architecture & Entity Graph
 
-The relational schema is configured with strict foreign-key cascades, automated timestamps, and explicit indexation across lookup columns:
+The relational schema is built with Drizzle ORM, utilizing foreign-key cascades, automated timestamps, and explicit indexation on high-frequency lookup keys:
 
-```bash
+```text
 db/
 ├── schema.ts           # Business schemas (Products, Categories, Reviews, Votes)
 ├── auth-schema.ts      # Identity schemas (Users, Sessions, Accounts, Verifications)
-└── seeds.ts            # Local development seed records
+└── seeds.ts            # Local development fixtures
 ```
 
 ### Relational Entity Graph
 
-* **`users`**: Central identity records storing user profiles and role attributes (`user`, `moderator`, `admin`).
-* **`sessions`**: Server-managed authentication tokens with cryptographically generated expiry timestamps.
-* **`products`**: Product specifications, repository links, media assets, owner foreign keys, and moderation states (`pending`, `approved`, `rejected`).
-* **`reviews` / `votes`**: Community interaction records constrained by composite foreign keys to guarantee single-vote attribution per user.
+* **`users`**: Core identity storage with role attributes (`user`, `moderator`, `admin`).
+* **`sessions`**: Server-managed authentication tokens with cryptographic expiration boundaries.
+* **`products`**: Product specifications, repository links, media assets, owner foreign keys, and status flags (`pending`, `approved`, `rejected`).
+* **`reviews` & `votes`**: Community interaction records constrained by composite primary keys (`userId`, `productId`) to enforce single-vote integrity.
 
 ---
 
-## Security, Data Integrity & Scalability
+## Security & Performance Design
 
-1. **Zero Client Trust:** All mutations occur through Next.js Server Actions backed by strict Zod schema validation. Incomplete or malformed payloads are rejected before touching database transactions.
-2. **Deterministic Role Gates:** Administrative routes (`/admin/*`) enforce a multi-layered barrier: path-level middleware protection combined with server-side database verification of the user's role on every action.
-3. **Database Connection Pooling:** Neon serverless connection pooling prevents connection starvation during high-concurrency read and write cycles.
-4. **On-Demand Cache Purging:** The public directory relies on static rendering with Next.js `revalidatePath`. Database reads remain minimal and fast, purging cached pages only when a product state transitions to approved.
+1. **Server-Side Validation**: All mutations run via Next.js Server Actions validated through strict **Zod** schemas before executing database transactions.
+2. **Layered RBAC Protection**: Administrative endpoints enforce both route-level middleware checks and database-level user role verification on every mutation.
+3. **Connection Pooling**: Neon serverless connection pooling prevents pool exhaustion during concurrent read/write spikes.
+4. **Static Regeneration**: Discovery routes rely on static rendering paired with on-demand cache revalidation, serving instant cached pages until a moderator update triggers an invalidation.
 
 ---
 
 ## Tech Stack
 
-* **Framework:** Next.js 16 (React 19, Server Components, Server Actions)
-* **Language:** TypeScript (Strict Mode)
-* **Authentication:** Better Auth (In-Database Sessions, Google & GitHub OAuth)
-* **Database:** Neon PostgreSQL (Serverless, Pooled Architecture)
-* **ORM:** Drizzle ORM (Type-Safe Query Layer)
-* **Validation:** Zod (Runtime & Type-Level Schema Validation)
-* **Styling:** Tailwind CSS v4 + Radix UI Primitives
-* **Deployment:** Vercel
+* **Framework**: Next.js 16 (App Router, Server Actions, React 19)
+* **Language**: TypeScript (Strict Mode)
+* **Authentication**: Better Auth (In-Database Sessions, OAuth)
+* **Database**: Neon Serverless PostgreSQL
+* **ORM**: Drizzle ORM
+* **Validation**: Zod
+* **Styling**: Tailwind CSS v4, Radix UI Primitives
+* **Package Manager**: pnpm
+* **Deployment**: Vercel
 
 ---
 
 ## Project Structure
 
-```bash
+```text
 atlash-hub/
 ├── app/
-│   ├── (auth)/             # Login, signup, and OAuth callbacks
-│   ├── (public)/           # Explore directory, search, and product detail views
-│   ├── admin/              # Protected moderator review queue and platform metrics
-│   ├── api/auth/[...all]/  # Better Auth wildcard HTTP route handler
-│   └── submit/             # Authenticated product submission wizard
+│   ├── (auth)/             # Authentication views and OAuth callbacks
+│   ├── (public)/           # Explore feed, search, and product details
+│   ├── admin/              # Protected moderation review dashboard
+│   ├── api/auth/[...all]/  # Better Auth wildcard HTTP handler
+│   └── submit/             # Authenticated submission wizard
 ├── components/
-│   ├── admin/              # Moderation tables and approval action triggers
-│   ├── forms/              # Zod-backed form controllers and validation states
-│   ├── products/           # Product cards, upvote controls, and spec presenters
-│   └── ui/                 # Design system tokens (shadcn/ui primitives)
-├── db/                     # Drizzle schemas, connection pools, and migration scripts
+│   ├── admin/              # Review queue tables and approval controls
+│   ├── forms/              # Zod-backed form controllers
+│   ├── products/           # Product cards, badges, and upvote controls
+│   └── ui/                 # Design system primitives
+├── db/                     # Drizzle schemas, migrations, and seed scripts
 ├── lib/
-│   ├── actions/            # Type-safe Server Actions for mutations
-│   ├── auth.ts             # Better Auth server configuration and plugin hooks
-│   └── auth-client.ts      # Client session listener helpers
-└── types/                  # Shared domain contracts and DTO definitions
+│   ├── actions/            # Type-safe Server Actions
+│   ├── auth.ts             # Better Auth server configuration
+│   └── auth-client.ts      # Client session helpers
+└── types/                  # Shared domain contracts and DTOs
 ```
 
 ---
@@ -157,11 +174,10 @@ atlash-hub/
 
 ### 1. Prerequisites
 
-Ensure you have the following installed locally:
-
-* Node.js: `22.0.0` or higher
-* Package Manager: `pnpm` (`npm install -g pnpm`)
-* Database: A PostgreSQL instance (such as a free tier on [Neon](https://neon.tech))
+Ensure the following tools are installed:
+* Node.js `22.0.0` or higher
+* [pnpm](https://pnpm.io/) (`npm install -g pnpm`)
+* A [Neon PostgreSQL](https://neon.tech) database instance
 
 ### 2. Repository Setup
 
@@ -173,19 +189,19 @@ pnpm install
 
 ### 3. Environment Configuration
 
-Create a `.env.local` file in the project root:
+Create a local environment file:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Populate the required environment variables:
+Configure your service credentials:
 
 ```env
-# PostgreSQL connection string (Neon pooled instance)
+# Database
 DATABASE_URL="postgresql://username:password@ep-sample-pooler.region.neon.tech/atlash?sslmode=require"
 
-# Better Auth Secret (Generate via: openssl rand -base64 32)
+# Better Auth
 BETTER_AUTH_SECRET="your_32_character_base64_secret"
 BETTER_AUTH_URL="http://localhost:3000"
 
@@ -196,17 +212,17 @@ GOOGLE_CLIENT_SECRET="your_google_oauth_client_secret"
 GITHUB_CLIENT_ID="your_github_oauth_client_id"
 GITHUB_CLIENT_SECRET="your_github_oauth_client_secret"
 
-# Public App URL
+# App
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
 ### 4. Database Initialization
 
 ```bash
-# Push schemas directly to Neon PostgreSQL
+# Push schemas to Neon PostgreSQL
 pnpm drizzle-kit push
 
-# (Optional) Seed the database with sample products and categories
+# (Optional) Seed initial categories and products
 pnpm db:seed
 ```
 
@@ -216,7 +232,16 @@ pnpm db:seed
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to access Atlash Hub.
+Open [http://localhost:3000](http://localhost:3000) to access the application.
+
+---
+
+## Roadmap
+
+- [ ] Automated GitHub repository health checks (stars, license, commit recency).
+- [ ] RSS and webhook feeds for newly approved products by category.
+- [ ] Creator dashboard with analytics on profile views and external link clicks.
+- [ ] Public developer API for querying verified tools programmatically.
 
 ---
 
@@ -228,4 +253,4 @@ Distributed under the [MIT License](LICENSE).
 
 ## Author
 
-Developed by **[Abdul Rahman](https://github.com/abdul-rahman-0x)**
+Crafted by **[Abdul Rahman](https://github.com/abdul-rahman-0x)**
