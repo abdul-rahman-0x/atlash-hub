@@ -12,42 +12,33 @@ const heroHeadingFont = Barlow_Semi_Condensed({
 export default function HeroSection() {
     return (
         <section className="relative min-h-svh overflow-hidden border-b-2 border-[#10201D] bg-[#3D5F58] text-[#F7F7F2]">
-            {/* Main hero content */}
             <div className="relative z-10 flex min-h-svh flex-col items-center justify-center px-6 py-[clamp(60px,6vw,100px)] text-center sm:px-8">
                 <div className="flex w-full max-w-5xl flex-col items-center">
                     <HeaderTag
-                        firstTitle="Built by makers"
-                        secondTitle="Discovered by people"
+                        firstTitle="Curated by makers"
+                        secondTitle="Verified for developers"
                     />
 
-                    {/* Main heading */}
                     <h1
-                        className={`${heroHeadingFont.className} mb-7 max-w-5xl text-[clamp(3rem,10vw,7rem)] font-extrabold tracking-[-0.03em] leading-[0.92] text-balance`}>
-                        Discover what
+                        className={`${heroHeadingFont.className} mb-6 max-w-5xl text-[clamp(2.75rem,8.5vw,6.5rem)] font-extrabold tracking-[-0.03em] leading-[0.94] text-balance`}>
+                        Discover the tools
                         <br />
                         <span className="text-[#8BB2DE]">
-                            builders are building.
+                            builders are shipping.
                         </span>
                     </h1>
 
-                    {/* Supporting description */}
-                    <p className="mb-9 max-w-2xl text-base font-medium leading-7 text-[#F7F7F2] sm:text-xl sm:leading-8">
-                        A place to discover remarkable products, follow what
-                        builders are creating, and find ideas worth paying
-                        attention to. Share what you’re building and connect
-                        with the people behind it.{" "}
+                    <p className="mb-10 max-w-2xl text-base font-medium leading-relaxed text-[#F7F7F2] sm:text-lg sm:leading-8">
+                        A structured directory of modern developer utilities, micro-SaaS, and open-source software. Explore verified tools vetted by real engineers, or launch your own work directly to an active technical audience.
                     </p>
 
-                    {/* Call-to-action buttons */}
                     <div className="flex flex-col items-center gap-4 sm:flex-row">
-                        {/* Primary CTA */}
                         <Button asChild size="lg" variant="default">
                             <Link href="/submit">Share your project</Link>
                         </Button>
 
-                        {/* Secondary CTA */}
                         <Button asChild size="lg" variant="outlineLight">
-                            <Link href="/explore">Explore projects</Link>
+                            <Link href="/explore">Explore tools</Link>
                         </Button>
                     </div>
                 </div>
