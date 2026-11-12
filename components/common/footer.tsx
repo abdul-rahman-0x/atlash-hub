@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-
 import logoIcon from "@/app/icon.svg";
 
 interface FooterLinkItem {
@@ -15,26 +14,26 @@ interface FooterSection {
 
 const footerLinks: FooterSection[] = [
     {
-        title: "explore",
+        title: "Explore",
         links: [
-            { label: "directory", href: "/explore" },
-            { label: "freshly baked", href: "/explore?sort=recent" },
-            { label: "top picks", href: "/explore?sort=featured" },
+            { label: "Directory", href: "/explore" },
+            { label: "Recent Launches", href: "/explore?sort=recent" },
+            { label: "Trending Picks", href: "/explore?sort=featured" },
         ],
     },
     {
-        title: "community",
+        title: "Community",
         links: [
-            { label: "share work", href: "/submit" },
-            { label: "guidelines", href: "/guidelines" },
-            { label: "get help", href: "/support" },
+            { label: "Submit Project", href: "/submit" },
+            { label: "Guidelines", href: "/guidelines" },
+            { label: "Help & Support", href: "/support" },
         ],
     },
     {
-        title: "contact",
+        title: "Contact",
         links: [
             {
-                label: "email us",
+                label: "Contact Us",
                 href: "mailto:abduls10x@gmail.com",
             },
         ],
@@ -45,10 +44,8 @@ export default function Footer() {
     return (
         <footer className="overflow-hidden bg-background pt-24 pb-12 font-sans text-[#0f201d]">
             <div className="wrapper relative z-10 mx-auto max-w-6xl px-6">
-                {/* Top Section: Brand on left, 3 Nav Columns on right */}
                 <div className="mb-20 flex flex-col justify-between gap-12 lg:flex-row lg:items-start">
-                    {/* Brand Section */}
-                    <div className="max-w-xs space-y-6">
+                    <div className="max-w-xs space-y-5">
                         <Link
                             href="/"
                             aria-label="Atlash home"
@@ -66,16 +63,14 @@ export default function Footer() {
                             </span>
                         </Link>
 
-                        <p className="text-sm font-medium leading-relaxed text-[#0f201d]/60">
-                            A place to share what you build and find cool new
-                            things made by builders like you.
+                        <p className="text-sm font-medium leading-relaxed text-[#0f201d]/70">
+                            A curated index of developer tools, micro-SaaS, and open-source software. Built by makers, verified by the community.
                         </p>
                     </div>
 
-                    {/* Navigation Columns */}
                     <div className="grid grid-cols-2 gap-x-12 gap-y-10 sm:grid-cols-3 sm:gap-x-16 lg:gap-x-20">
                         {footerLinks.map((section) => (
-                            <div key={section.title} className="space-y-5">
+                            <div key={section.title} className="space-y-4">
                                 <h4 className="text-[12px] font-bold uppercase tracking-wider text-[#525252]">
                                     {section.title}
                                 </h4>
@@ -85,7 +80,7 @@ export default function Footer() {
                                         <li key={link.label}>
                                             <Link
                                                 href={link.href}
-                                                className="text-[13px] font-medium capitalize text-[#0f201d] transition-colors duration-150 hover:text-[#E97B77] hover:underline">
+                                                className="text-[13px] font-medium text-[#0f201d] transition-colors duration-150 hover:text-[#E97B77] hover:underline">
                                                 {link.label}
                                             </Link>
                                         </li>
@@ -96,7 +91,6 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Bottom Bar: Copyright on left, Terms & Privacy on right */}
                 <div className="flex flex-col items-center justify-between gap-4 border-t border-foreground/10 pt-8 sm:flex-row">
                     <p className="text-xs font-medium tracking-wider text-[#737373]">
                         © 2026{" "}
