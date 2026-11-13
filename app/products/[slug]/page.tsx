@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getProductBySlug } from "@/lib/products/product-select";
 import BackHome from "@/components/common/back-home";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 
 export async function generateMetadata({
     params,
@@ -19,7 +19,7 @@ export async function generateMetadata({
 
     if (!product) {
         return {
-            title: "Project Not Found",
+            title: "Project Not Found | Atlash Hub",
         };
     }
 
@@ -27,24 +27,24 @@ export async function generateMetadata({
         product.tagline ?? "Discover this builder's project on Atlash.";
 
     return {
-        title: `${product.name} — Atlash`,
+        title: `${product.name} — Atlash Hub`,
         description: productDescription,
         keywords: [
             product.name,
             ...(product.tags ?? []),
-            "builder community",
+            "developer tools",
             "atlash hub",
-            "software launch",
+            "verified software",
         ],
         openGraph: {
-            title: `${product.name} | Atlash`,
+            title: `${product.name} | Atlash Hub`,
             description: productDescription,
             type: "website",
             images: [{ url: "/banner.png" }],
         },
         twitter: {
             card: "summary_large_image",
-            title: `${product.name} | Atlash`,
+            title: `${product.name} | Atlash Hub`,
             description: productDescription,
         },
     };
@@ -81,13 +81,17 @@ export default async function ProductDetailPage({
 
     const launchDate = product.createAt
         ? new Intl.DateTimeFormat("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-          }).format(new Date(product.createAt))
-        : "Recently launched";
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+        }).format(new Date(product.createAt))
+        : "Recently";
 
     const makersScore = Math.floor(product.voteCount * 0.55 + 40);
+
+    const builderDisplay = product.submittedBy?.includes("@")
+        ? product.submittedBy.split("@")[0]
+        : product.submittedBy || "Anonymous";
 
     const getStatus = (votes: number) => {
         if (votes >= 500) {
@@ -115,21 +119,21 @@ export default async function ProductDetailPage({
     return (
         <main className="min-h-screen bg-[#FAF9F6] text-[#0F201D] pt-16 pb-24">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Back Navigation */}
                 <div className="mb-10">
                     <BackHome href="/explore" label="Back to explore" />
                 </div>
 
-                {/* Left/Right Split Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                    {/* LEFT COLUMN: Core Content & Information Stack (Spans 8 cols) */}
                     <div className="lg:col-span-8 space-y-8 text-left">
-                        {/* Title Block */}
                         <div className="space-y-4">
-                            <div>
+                            <div className="flex items-center gap-2.5">
                                 <span
                                     className={`${status.color} inline-flex items-center rounded-[6px] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] font-mono`}>
                                     {status.label}
+                                </span>
+                                <span className="inline-flex items-center gap-1.5 rounded-[6px] border border-[#0F201D]/15 bg-white/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[#0F201D]/75 font-mono">
+                                    <ShieldCheck className="size-3.5 text-emerald-600 stroke-[2.5]" />
+                                    Verified Tool
                                 </span>
                             </div>
 
@@ -142,14 +146,13 @@ export default async function ProductDetailPage({
                             </p>
                         </div>
 
-                        {/* Directory Metadata Section (Horizontal quick-facts bar) */}
                         <div className="flex flex-wrap items-center gap-x-8 gap-y-4 py-5 border-y border-[#0F201D]/10 text-left">
                             <div>
                                 <span className="block text-[10px] font-bold uppercase tracking-widest text-[#0F201D]/45 font-mono">
-                                    Builder
+                                    Maker
                                 </span>
                                 <span className="font-bold text-sm text-[#0F201D] mt-0.5 block truncate max-w-[150px]">
-                                    {product.submittedBy}
+                                    @{builderDisplay}
                                 </span>
                             </div>
 
@@ -157,7 +160,7 @@ export default async function ProductDetailPage({
 
                             <div>
                                 <span className="block text-[10px] font-bold uppercase tracking-widest text-[#0F201D]/45 font-mono">
-                                    Release Date
+                                    Launched
                                 </span>
                                 <span className="font-bold text-sm text-[#0F201D] mt-0.5 block">
                                     {launchDate}
@@ -168,29 +171,27 @@ export default async function ProductDetailPage({
 
                             <div>
                                 <span className="block text-[10px] font-bold uppercase tracking-widest text-[#0F201D]/45 font-mono">
-                                    Makers
+                                    Community
                                 </span>
                                 <span className="font-black text-sm text-[#0F201D] mt-0.5 block">
-                                    {makersScore}
+                                    {makersScore} builders
                                 </span>
                             </div>
                         </div>
 
-                        {/* Flat Project Description */}
                         <div className="space-y-3">
                             <h2 className="text-xs font-bold uppercase tracking-widest text-[#0F201D]/40 font-mono">
-                                About this project
+                                Overview
                             </h2>
-                            <p className="text-base sm:text-lg leading-relaxed text-[#0F201D]/80 whitespace-pre-wrap">
+                            <p className="text-base sm:text-lg leading-relaxed text-[#0F201D]/80 whitespace-pre-wrap font-normal">
                                 {product.description}
                             </p>
                         </div>
 
-                        {/* Tags Section (Cleanly situated beneath description to fill empty space) */}
                         {product.tags && product.tags.length > 0 && (
                             <div className="pt-6 border-t border-[#0F201D]/10">
                                 <span className="block text-[10px] font-bold uppercase tracking-widest text-[#0F201D]/45 font-mono mb-3">
-                                    Project tags
+                                    Categories
                                 </span>
                                 <div className="flex flex-wrap gap-1.5">
                                     {product.tags.map((tag) => (
@@ -206,17 +207,14 @@ export default async function ProductDetailPage({
                         )}
                     </div>
 
-                    {/* RIGHT COLUMN: Action Center (Spans 4 cols) */}
                     <aside className="lg:col-span-4 lg:sticky lg:top-24 space-y-8 lg:pl-10 lg:border-l border-[#0F201D]/10">
-                        {/* Action 1: Website Link with Context */}
                         {product.websiteUrl && (
                             <div className="space-y-3 text-left">
                                 <h3 className="text-xs font-bold uppercase tracking-widest text-[#0F201D]/45 font-mono">
-                                    Explore Product
+                                    Live Product
                                 </h3>
                                 <p className="text-xs text-[#0F201D]/60 leading-relaxed">
-                                    Launch the external application to
-                                    experience this builder&apos;s project live.
+                                    Launch the external application to explore this tool live.
                                 </p>
                                 <Button
                                     asChild
@@ -234,21 +232,19 @@ export default async function ProductDetailPage({
                             </div>
                         )}
 
-                        {/* Action 2: Voting with Context */}
                         <div className="space-y-3 pt-6 border-t border-[#0F201D]/10 text-left">
                             <h3 className="text-xs font-bold uppercase tracking-widest text-[#0F201D]/45 font-mono">
-                                Support the Builder
+                                Support Project
                             </h3>
                             <p className="text-xs text-[#0F201D]/60 leading-relaxed">
-                                Like this project? Cast your vote to help
-                                support the builder and climb the weekly
-                                leaderboard.
+                                Upvote to help this project climb the community leaderboard.
                             </p>
                             <div className="w-full min-h-[48px]">
                                 <VotingButtons
                                     productId={product.id}
                                     voteCount={product.voteCount}
                                     hasVoted={hasVotedStatus}
+                                    isAuthenticated={Boolean(session?.user)}
                                 />
                             </div>
                         </div>
