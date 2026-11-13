@@ -16,12 +16,12 @@ export default async function FeaturedProducts() {
                 <SectionHeader
                     title={
                         <>
-                            Top Picks of the{" "}
-                            <span className="text-[#E53A28]">Week</span>
+                            Top picks this{" "}
+                            <span className="text-[#E53A28]">week</span>
                         </>
                     }
-                    description="A curated selection of products gaining momentum across the builder community."
-                    href="/explore"
+                    description="The most upvoted tools and software across the community."
+                    href="/explore?sort=featured"
                 />
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
