@@ -1,9 +1,7 @@
 import SectionHeader from "@/components/common/section-header";
 import { Inbox } from "lucide-react";
-
 import ProductCard from "@/components/products/product-card";
 import EmptyState from "@/components/common/empty-state";
-
 import { getRecentProducts } from "@/lib/products/product-select";
 import { getCurrentSession } from "@/lib/auth-session";
 
@@ -18,12 +16,12 @@ export default async function RecentLaunches() {
                 <SectionHeader
                     title={
                         <>
-                            Fresh products newly{" "}
+                            Recently{" "}
                             <span className="text-[#E53A28]">launched</span>
                         </>
                     }
-                    description="Explore the newest side projects, SaaS startups, and digital experiments built by our global community."
-                    href="/explore"
+                    description="The latest verified developer tools submitted by builders."
+                    href="/explore?sort=recent"
                 />
 
                 {recentProducts.length > 0 ? (
@@ -38,8 +36,8 @@ export default async function RecentLaunches() {
                     </div>
                 ) : (
                     <EmptyState
-                        message="it's a quiet week!"
-                        description="We're waiting for the next great launch. Check back soon or become the first builder to ship something new."
+                        message="No new launches this week"
+                        description="Check back soon, or be the first builder to submit your project."
                         icon={Inbox}
                     />
                 )}
