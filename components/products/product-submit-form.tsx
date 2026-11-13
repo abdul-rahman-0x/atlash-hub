@@ -39,8 +39,8 @@ export default function ProductSubmitForm() {
     useEffect(() => {
         if (!success) return;
 
-        toast.success("Product submitted successfully", {
-            description: "Your project is now under review.",
+        toast.success("Project submitted successfully", {
+            description: "Your entry has been queued for verification.",
             duration: 5000,
         });
 
@@ -74,42 +74,34 @@ export default function ProductSubmitForm() {
 
     return (
         <main className="fixed inset-0 z-50 overflow-y-auto bg-background px-4 font-sans">
-            {/* Back to home - Absolute positioned */}
             <div className="group absolute left-5 top-5 inline-flex items-center gap-2 text-sm font-semibold text-foreground transition-opacity hover:opacity-70 sm:left-8 sm:top-7">
                 <BackHome />
             </div>
 
             <div className="flex min-h-full items-center justify-center py-12 sm:py-16">
-                {/* card container  */}
                 <div className="w-full max-w-xl rounded-none border-2 border-foreground bg-[#F7F7F2] p-8 shadow-foreground shadow-nb-md dark:bg-[#111015] dark:border-zinc-800 sm:p-10">
-                    {/* Page heading */}
                     <header className="mb-6 text-left">
                         <h1 className="text-3xl font-bold font-mono tracking-tight text-foreground sm:text-4xl">
-                            Share what you&apos;ve{" "}
-                            <span className="text-[#E97B77]">built.</span>
+                            Submit your{" "}
+                            <span className="text-[#E97B77]">project.</span>
                         </h1>
 
                         <p className="mt-2 text-sm font-medium text-muted-foreground">
-                            Tell the community about your product and get it
-                            discovered by other builders.
+                            Provide your project details to enter the verification queue. Once approved, your tool goes live to the public directory.
                         </p>
                     </header>
 
-                    {/* Form */}
                     <form
                         id="product-submit-form"
                         action={formAction}
                         className="space-y-4 text-left">
                         <div className="space-y-5">
-                            {/* Product name */}
                             <div className="space-y-1.5">
                                 <Label
                                     htmlFor="name"
                                     className="text-xs font-black uppercase tracking-wider text-zinc-950 dark:text-white">
-                                    Product name
-                                    <span className="text-red-500 ml-0.5">
-                                        *
-                                    </span>
+                                    Project name
+                                    <span className="text-red-500 ml-0.5">*</span>
                                 </Label>
 
                                 <Input
@@ -119,22 +111,19 @@ export default function ProductSubmitForm() {
                                     required
                                     maxLength={LIMITS.name}
                                     autoComplete="off"
-                                    placeholder="e.g. Atlash"
+                                    placeholder="e.g. Resend, Bruno, Screen Studio"
                                     className="h-10 rounded-none border-2 border-foreground bg-transparent px-3 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-foreground"
                                 />
 
                                 {fieldError("name")}
                             </div>
 
-                            {/* Website */}
                             <div className="space-y-1.5">
                                 <Label
                                     htmlFor="websiteUrl"
                                     className="text-xs font-black uppercase tracking-wider text-zinc-950 dark:text-white">
-                                    Website URL
-                                    <span className="text-red-500 ml-0.5">
-                                        *
-                                    </span>
+                                    Live URL
+                                    <span className="text-red-500 ml-0.5">*</span>
                                 </Label>
 
                                 <Input
@@ -145,22 +134,19 @@ export default function ProductSubmitForm() {
                                     maxLength={LIMITS.websiteUrl}
                                     inputMode="url"
                                     autoComplete="url"
-                                    placeholder="https://yourproduct.com"
+                                    placeholder="https://yourtool.dev"
                                     className="h-10 rounded-none border-2 border-foreground bg-transparent px-3 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-foreground"
                                 />
 
                                 {fieldError("websiteUrl")}
                             </div>
 
-                            {/* Tagline */}
                             <div className="space-y-1.5">
                                 <Label
                                     htmlFor="tagline"
                                     className="text-xs font-black uppercase tracking-wider text-zinc-950 dark:text-white">
                                     Tagline
-                                    <span className="text-red-500 ml-0.5">
-                                        *
-                                    </span>
+                                    <span className="text-red-500 ml-0.5">*</span>
                                 </Label>
 
                                 <Input
@@ -169,14 +155,13 @@ export default function ProductSubmitForm() {
                                     type="text"
                                     required
                                     maxLength={LIMITS.tagline}
-                                    placeholder="What does your product do?"
+                                    placeholder="One crisp sentence explaining what your tool does"
                                     className="h-10 rounded-none border-2 border-foreground bg-transparent px-3 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-foreground"
                                 />
 
                                 {fieldError("tagline")}
                             </div>
 
-                            {/* Tags */}
                             <div className="space-y-1.5">
                                 <Label
                                     htmlFor="tags"
@@ -185,9 +170,7 @@ export default function ProductSubmitForm() {
                                     <span className="text-muted-foreground ml-1 normal-case font-medium">
                                         (up to 6)
                                     </span>
-                                    <span className="text-red-500 ml-0.5">
-                                        *
-                                    </span>
+                                    <span className="text-red-500 ml-0.5">*</span>
                                 </Label>
 
                                 <Input
@@ -196,23 +179,20 @@ export default function ProductSubmitForm() {
                                     type="text"
                                     required
                                     maxLength={LIMITS.tags}
-                                    placeholder="AI, SaaS, Developer Tools"
+                                    placeholder="Developer Tools, API, Open Source, CLI"
                                     className="h-10 rounded-none border-2 border-foreground bg-transparent px-3 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-foreground"
                                 />
 
                                 {fieldError("tags")}
                             </div>
 
-                            {/* Description */}
                             <div className="space-y-1.5">
                                 <div className="flex items-center justify-between">
                                     <Label
                                         htmlFor="description"
                                         className="text-xs font-black uppercase tracking-wider text-zinc-950 dark:text-white">
-                                        Product story
-                                        <span className="text-red-500 ml-0.5">
-                                            *
-                                        </span>
+                                        Project overview
+                                        <span className="text-red-500 ml-0.5">*</span>
                                     </Label>
 
                                     <span className="text-[10px] font-bold text-muted-foreground">
@@ -225,25 +205,23 @@ export default function ProductSubmitForm() {
                                     name="description"
                                     required
                                     maxLength={LIMITS.description}
-                                    placeholder="Tell builders what you built, why you built it, and what makes it useful."
-                                    className="h-20 resize-none rounded-none border-2 border-foreground bg-transparent px-3 py-2 text-sm leading-relaxed shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-foreground"
+                                    placeholder="Explain the workflow pain point your software solves and who it is built for."
+                                    className="h-24 resize-none rounded-none border-2 border-foreground bg-transparent px-3 py-2 text-sm leading-relaxed shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-foreground"
                                 />
 
                                 {fieldError("description")}
                             </div>
                         </div>
 
-                        {/* Bottom action */}
-                        <div className="mt-6  border-foreground/10">
+                        <div className="mt-6 border-foreground/10 pt-2">
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                 <div className="min-w-0">
                                     <p className="text-xs font-bold text-zinc-950 dark:text-white">
-                                        Ready to launch?
+                                        Verification queue
                                     </p>
 
                                     <p className="mt-0.5 text-[11px] font-medium text-muted-foreground">
-                                        Your submission will be reviewed before
-                                        publication.
+                                        Moderators inspect demo URLs and repository activity before publishing.
                                     </p>
                                 </div>
 
@@ -251,10 +229,10 @@ export default function ProductSubmitForm() {
                                     {isPending ? (
                                         <>
                                             <Loader2 className="mr-2 size-4 animate-spin" />
-                                            Submitting
+                                            Submitting...
                                         </>
                                     ) : (
-                                        <>Launch project</>
+                                        <>Submit for review</>
                                     )}
                                 </Button>
                             </div>
